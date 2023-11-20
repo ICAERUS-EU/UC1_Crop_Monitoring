@@ -178,13 +178,14 @@ def calculate_mean_per_parcel(array_aux, all_parcels, ndvi_process):
 
 def get_lai_per_parcel(ndvi_parcels):
 
-    pixel_size = 0.002118 #pixel_sixe_in_meters
+    #pixel_size = 0.002118 #pixel_size_in_meters
     #vegetation_mask = ndvi_image > NDVI_LIM
+    #lai_parcels.append(ndvi_val * pixel_size**2)
 
     lai_parcels = []
     for ndvi_val in ndvi_parcels: 
-        lai_parcels.append(ndvi_val * pixel_size**2)
-
+        lai_parcels.append(1 - np.exp(-0.69 * ndvi_val)) / 0.69
+    
     return lai_parcels
 
 
