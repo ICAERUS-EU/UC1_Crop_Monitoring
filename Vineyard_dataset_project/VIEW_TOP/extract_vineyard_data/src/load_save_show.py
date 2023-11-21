@@ -21,7 +21,7 @@ class GeoDataProcessor:
         return file_content
 
     @staticmethod
-    def read_orthomosaic_tif(tif_path):
+    def read_orthomosaic(tif_path):
         with rasterio.open(tif_path) as src:
             red_band = cv2.resize(src.read(1), None, fx=1, fy=1)
             green_band = cv2.resize(src.read(2), None, fx=1, fy=1)
@@ -34,6 +34,14 @@ class GeoDataProcessor:
         mask_res = cv2.resize(mask, None, fx=0.2, fy=0.2)
 
         return rgb_image_res, r_image_res, mask_res
+
+    @staticmethod
+    def read_orthomosaic_onechannel(tif_path):
+        with rasterio.open(tif_path) as src:
+            img_res = cv2.resize(src.read(1), (938, 722))
+
+
+        return img_res
 
     @staticmethod
     def read_dem(dem_path):
@@ -53,11 +61,16 @@ def draw_labelled_parcels(ortho_image_res, all_parcels, labels):
     cont = -1
     for i,parcel in enumerate(all_parcels):
        
-        if(labels[i] == 1):
+        if(labels[i] == 2):
+            # RED (DISEASE)
             color_parcel = [0,0,255]
+        elif(labels[i] == 1):
+            # ORANGE (RISK)
+            color_parcel = [0,255,255]
         else: 
+            # GREEN (HEALTHY)
             color_parcel = [0,255,0]
-
+                            
         cv2.polylines(ortho_image_parcels, [np.array(parcel)], isClosed=True, color=color_parcel, thickness=1)
         cv2.putText(ortho_image_parcels, str(i), (parcel[0][0], parcel[0][1]), cv2.FONT_HERSHEY_SIMPLEX, 0.2, (255,255,255), 1)
 

@@ -37,11 +37,18 @@ class ParcelProcessor:
         
         labels = []
         for i, value in enumerate(ndvi_parcels):
-            if(value<0.1):
-                labels.append(1)
-            else: 
+            '''if(value<0.1):
                 labels.append(0)
-
+            elif(value<0.2): 
+             labels.append(1)    
+            else: 
+                labels.append(2)'''
+            if(value>-0.28):
+                labels.append(0)
+            elif(value>-0.35): 
+             labels.append(1)    
+            else: 
+                labels.append(2)
 
         with open(path_labels, 'w') as f:
             json.dump(labels, f)
@@ -62,11 +69,11 @@ class ParcelProcessor:
             parcel_mask = np.zeros((h, w, 1), dtype=np.uint8)
             cv2.fillPoly(parcel_mask, [np.array(parcel)], color = (255,255,255))
             masked_parcel = cv2.bitwise_and(array_aux, array_aux, mask=parcel_mask)
+            area_parcel = np.count_nonzero(masked_parcel)
             
             # If DEM is processing, calculate the mean elevation value of the parcel
             if(not ndvi_process):
-                value_count = np.count_nonzero(masked_parcel)
-                value = np.sum(masked_parcel) / value_count
+                value = np.sum(masked_parcel) / area_parcel
 
             # If NDVI is processing, calculate the mean ndvi value of the parcel
             else: 
@@ -75,8 +82,10 @@ class ParcelProcessor:
                     for val in row: 
                         if(val!=0):
                             print(val)'''
-                value = np.sum(all_values)/len(all_values)
-
+                if(len(all_values)>0):
+                    value = np.sum(all_values) / area_parcel
+                else: 
+                    value = 0.0
 
             mean_values.append(value)
 
