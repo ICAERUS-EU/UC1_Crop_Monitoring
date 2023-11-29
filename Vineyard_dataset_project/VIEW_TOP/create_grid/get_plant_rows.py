@@ -16,19 +16,26 @@ import copy
 import json 
 import rasterio
 
-from src.utils import load_config, create_grid_with_color_mapping, extract_vineyard_health_data
+from src.utils import load_config
 from src.vegetation_indices import ndvi
 from src.grid import get_coordinates_row, get_parallel_rows, mask_ortho_image_rows, get_filtered_rows, get_parcel_rows_image
 
 select_points = False 
 #select_points = True
 
-VINEYARD_HEIGHT = 5
-VINEYARD_SEP = 14.8
-PARCEL_LEN = 26
+#VINEYARD_HEIGHT = 5
+#VINEYARD_SEP = 14.8
+#PARCEL_LEN = 26
+
+VINEYARD_HEIGHT = 10
+VINEYARD_SEP = 37
+PARCEL_LEN = 70
 
 
 
+base_path = './../../data/'
+base_path_images = base_path + 'images/'
+base_path_features = base_path + 'features/'
 
 
 def read_images(config): 
@@ -93,10 +100,10 @@ def main():
     #ndvi_filtered = get_ndvi_filtered(masked_nir, masked_r)
     #ndvi_filtered = cv2.normalize(ndvi_filtered, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
     
-    tif_path = "orthomosaic_cropped_230609.tif"
+    tif_path = base_path_images + "orthomosaic_cropped_230609.tif"
     ortho_image, mask =  read_orthomosaic_tif(tif_path)
-    ortho_image_res = cv2.resize(ortho_image, None, fx=0.2, fy=0.2)
-    mask = cv2.resize(mask, None, fx=0.2, fy=0.2)
+    ortho_image_res = cv2.resize(ortho_image, None, fx=0.5, fy=0.5)
+    mask = cv2.resize(mask, None, fx=0.5, fy=0.5)
 
     
     ######################################
@@ -117,11 +124,14 @@ def main():
     parcel_rows_image, parcel_points = get_parcel_rows_image(ortho_image_res, filtered_rows_image, PARCEL_LEN)
 
     # Guardar la lista en un archivo JSON
-    with open('./../data/features_data/parcel_points.json', 'w') as f:
+    with open(base_path_features + 'parcel_points.json', 'w') as f:
         json.dump(parcel_points, f)
 
     cv2.imshow('masked_rows_image', masked_rows_image)
     cv2.imshow('parcel_rows_image', parcel_rows_image)
+    cv2.imwrite('masked_rows_image.jpg', masked_rows_image)
+    cv2.imwrite('parcel_rows_image.jpg', parcel_rows_image)
+
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 

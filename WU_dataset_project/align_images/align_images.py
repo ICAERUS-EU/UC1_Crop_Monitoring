@@ -162,8 +162,6 @@ if __name__ == "__main__":
 
 
 
-
-
 '''tif_path_b = "IMG_0136_1.tif"
 tif_path_g = "IMG_0136_2.tif"
 tif_path_r = "IMG_0136_3.tif"

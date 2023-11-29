@@ -29,16 +29,20 @@ class GeoDataProcessor:
             rgb_image = cv2.merge([blue_band, green_band, red_band])
             mask = src.read(4)
 
-        rgb_image_res = cv2.resize(rgb_image, None, fx=0.2, fy=0.2)
-        r_image_res = cv2.resize(red_band, None, fx=0.2, fy=0.2)
-        mask_res = cv2.resize(mask, None, fx=0.2, fy=0.2)
+
+        res = 0.2
+        res = 0.5
+        rgb_image_res = cv2.resize(rgb_image, (2346, 1805))
+        r_image_res = cv2.resize(red_band, None, fx=res, fy=res)
+        mask_res = cv2.resize(mask, None, fx=res, fy=res)
 
         return rgb_image_res, r_image_res, mask_res
 
     @staticmethod
     def read_orthomosaic_onechannel(tif_path):
         with rasterio.open(tif_path) as src:
-            img_res = cv2.resize(src.read(1), (938, 722))
+            #img_res = cv2.resize(src.read(1), (938, 722))
+            img_res = cv2.resize(src.read(1), (2346, 1805))
 
 
         return img_res
@@ -48,7 +52,9 @@ class GeoDataProcessor:
         dataset = gdal.Open(dem_path, gdal.GA_ReadOnly)
         band = dataset.GetRasterBand(1)
         dem = band.ReadAsArray()
-        dem_res = cv2.resize(dem, None, fx=0.2, fy=0.2)
+        res = 0.2
+        res = 0.5
+        dem_res = cv2.resize(dem, None, fx=res, fy=res)
 
         dataset = None
         return dem, dem_res
@@ -71,8 +77,14 @@ def draw_labelled_parcels(ortho_image_res, all_parcels, labels):
             # GREEN (HEALTHY)
             color_parcel = [0,255,0]
                             
-        cv2.polylines(ortho_image_parcels, [np.array(parcel)], isClosed=True, color=color_parcel, thickness=1)
-        cv2.putText(ortho_image_parcels, str(i), (parcel[0][0], parcel[0][1]), cv2.FONT_HERSHEY_SIMPLEX, 0.2, (255,255,255), 1)
+        cv2.polylines(ortho_image_parcels, [np.array(parcel)], isClosed=True, color=color_parcel, thickness=2)
+        #cv2.putText(ortho_image_parcels, str(i), (parcel[0][0], parcel[0][1]), cv2.FONT_HERSHEY_SIMPLEX, 0.2, (255,255,255), 1)
+
+        center_x = int((parcel[0][0] + parcel[2][0]) / 2) - 2
+        center_y = int((parcel[0][1] + parcel[2][1]) / 2) + 2
+        center = (center_x, center_y)
+
+        cv2.putText(ortho_image_parcels, str(i), center, cv2.FONT_HERSHEY_SIMPLEX, 0.23, (255,255,255), 1)
 
     return ortho_image_parcels
 

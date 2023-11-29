@@ -41,10 +41,10 @@ def get_coordinates_row(ortho_image_res, select_points):
     # Automatic selection
     else:
         coordinates = [[165, 421], [783, 279]]
-        #[[300, 162],[900, 162]]
-    
-    angle = np.arctan2(coordinates[1][1] - coordinates[0][1], coordinates[1][0] - coordinates[0][0])
+        coordinates = [[69, 750], [2298, 237]]
 
+    angle = np.arctan2(coordinates[1][1] - coordinates[0][1], coordinates[1][0] - coordinates[0][0])
+    print(coordinates)
     return coordinates, angle
 
 
@@ -66,7 +66,9 @@ def get_parallel_rows(ortho_image_res, coordinates, VINEYARD_SEP):
     img_height, img_width, _ = ortho_image_rows.shape
 
     # Added length to initial row
-    added_length = 600
+    added_length = 6000
+    thickness = 2
+    thickness = 9
 
     # Varible to stop drawing parallel lines
     reached = False
@@ -103,7 +105,7 @@ def get_parallel_rows(ortho_image_res, coordinates, VINEYARD_SEP):
         point2 = (int(x2_parallel), int(y2_parallel))
 
         # Draws the parallel line
-        cv2.line(ortho_image_rows, point1, point2, (0,0,255), 2)
+        cv2.line(ortho_image_rows, point1, point2, (0,0,255), thickness)
 
         # If it's in the limits of the image, it changes to substract from it 
         if(( ( point1[1] >= img_height and point2[1] >= img_height or point1[1] <= 0 and point2[1] <= 0) 
@@ -141,7 +143,9 @@ def mask_ortho_image_rows(ortho_image_rows, mask):
 
     # Smooth the mask
     smoothed_mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel7)
-    smoothed_mask = cv2.erode(smoothed_mask, kernel3, iterations=2)
+    #smoothed_mask = cv2.erode(smoothed_mask, kernel3, iterations=2)
+    smoothed_mask = cv2.erode(smoothed_mask, kernel3, iterations=5)
+
     smoothed_mask = cv2.GaussianBlur(smoothed_mask, (5, 5), 0)
 
     # Apply mask to image 
@@ -284,7 +288,7 @@ def get_total_parcels_and_deltas(all_corners, PARCEL_LEN):
     delta_y = (all_corners[2][1] - all_corners[0][1]) / total_parcels
     deltas = [delta_x, delta_y]
 
-    print(total_parcels)
+    #print(total_parcels)
 
     # If the total parcels is not a round number, one parcel is added (ex. 5.3 parcels >> 6 parcels)
     if(total_parcels - int(total_parcels) >=0.4):
@@ -322,6 +326,7 @@ def get_parcel_rows_image(ortho_image_res, filtered_rows_image, PARCEL_LEN):
     contours = cv2.findContours(edges,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)[0]
 
     # For each contour
+    total = -1
     for cnt in contours: 
 
         # Get 4 corners of the rectangle that defines the contour
@@ -337,9 +342,17 @@ def get_parcel_rows_image(ortho_image_res, filtered_rows_image, PARCEL_LEN):
 
         # For each parcel in the row
         for k in range(total_parcels):
+            total = total+1
             # Calculates the parcel points and draw the rectangle
             parcel = get_parcel_points(k, total_parcels, all_corners, deltas, PARCEL_LEN)
-            cv2.polylines(parcel_rows_image, [parcel], isClosed=True, color=[255,0,0], thickness=1)
+            #cv2.polylines(parcel_rows_image, [parcel], isClosed=True, color=[255,0,0], thickness=1)
+            cv2.polylines(parcel_rows_image, [parcel], isClosed=True, color=[0,170,255], thickness=2)
+
+            center_x = int((parcel[0][0] + parcel[2][0]) / 2) - 2
+            center_y = int((parcel[0][1] + parcel[2][1]) / 2) + 2
+            center = (center_x, center_y)
+
+            cv2.putText(parcel_rows_image, str(total), center, cv2.FONT_HERSHEY_SIMPLEX, 0.23, (255,255,255), 1)
 
             # Saves parcel points
             all_parcel_points[-1].append(parcel.tolist())

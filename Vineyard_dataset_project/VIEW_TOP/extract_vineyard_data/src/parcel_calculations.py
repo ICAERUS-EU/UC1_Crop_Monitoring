@@ -43,10 +43,17 @@ class ParcelProcessor:
              labels.append(1)    
             else: 
                 labels.append(2)'''
-            if(value>-0.28):
+            '''if(value>-0.28):
                 labels.append(0)
             elif(value>-0.35): 
              labels.append(1)    
+            else: 
+                labels.append(2)'''
+
+            if(value>-0.978):
+                labels.append(0)
+            elif(value>-0.985): 
+                labels.append(1)    
             else: 
                 labels.append(2)
 
