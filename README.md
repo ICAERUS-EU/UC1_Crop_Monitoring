@@ -22,10 +22,21 @@
 ## Table Of Contents
 
 * [Summary](#summary)
+* [Models](#models)
 * [Authors](#authors)
 * [Acknowledgements](#acknowledgements)
 
 ## Summary
+
+
+## Models
+
+The models developed for crop monitoring are splitted in three depending on the detection level approached. 
+- Top view
+- Row view
+- Plant view
+
+
 
 ## Authors
 
