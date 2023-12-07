@@ -43,7 +43,7 @@ For the row-view level detection, the images used are similar to the one shown b
 <p align="center">
   <img src="https://github.com/EstherNoumena/UC1_Crop_Monitoring/assets/148956768/4d0014d9-d34b-4fdb-86dd-6d3a86e71a07">
 </p>
-The objetive of these models is to detect if the plant row image is diseased in general or healthy. <br><br>
+The objetive of these models is to detect if the plant row image is diseased in general or healthy. <br>
 
 - _Row-view disease detection model with RF_
     - **Description:** Random forest model to detect diseased row plants
