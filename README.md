@@ -31,10 +31,33 @@
 
 ## Models
 
-The models developed for crop monitoring are splitted in three depending on the detection level approached. 
-- Top view
-- Row view
-- Plant view
+The models developed for crop monitoring are splitted in three groups depending on the detection level approached:
+
+### Top-View Level
+
+
+### Row-View Level
+For the row-view level detection, the images used are similar to the one shown below.
+<p align="center">
+  <img src="https://github.com/EstherNoumena/UC1_Crop_Monitoring/assets/148956768/4d0014d9-d34b-4fdb-86dd-6d3a86e71a07">
+</p>
+The objetive of these models is to detect if the plant row image is diseased in general or healthy. 
+
+- _Row-view disease detection model with RF_
+    - **Description:** Random forest model to detect diseased row plants
+    - **Accuracy**: 0.81
+    - **Dataset used:** ""
+    - **Specs:**
+      - **Input:** Images size (617,106,3)
+      - **Output:** Labels [0 = healthy, 1 = diseased]
+      - **Method:** Random Forests
+      - **Type:** Classification
+    - **Date:** 25/10/2023
+    - **Author:** Esther Vera
+  
+
+
+### Plant-View Level
 
 
 
