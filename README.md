@@ -50,7 +50,7 @@ For the row-view level detection, the images used are similar to the one shown b
 The objetive of these models is to detect if the plant row image is diseased in general or healthy. <br>
 
 
-- _[Row-view disease detection model with RF]()_
+- _[Row-view disease detection model with RF](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/Vineyard_dataset_project/VIEW_ROW/row_view_detection)_
     - **Description:** Row-view disease detection model with RF
     - **Accuracy:** 0.81
     - **Dataset used:** []()
