@@ -70,7 +70,7 @@ The models developed for crop monitoring are splitted in three groups depending 
     - **Input:** Images size (800,800,3)
     - **Output:** Labels [0 = diseased, 1 = healthy]
     - **Method:** YOLOv8
-    - **Type:** Classification
+    - **Type:** Detection and classification
   - **Date:** 22/12/2023
 
 
