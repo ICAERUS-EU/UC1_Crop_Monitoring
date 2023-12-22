@@ -60,7 +60,7 @@ The models developed for crop monitoring are splitted in three groups depending 
 #### _[Row-view disease detection model with YOLOv8](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/Vineyard_dataset_project/models/best.pt)_
 
 <p align="center">
-  <img src="https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/04434b88-4913-4eb2-9af2-a2b67ff70cd9" width="500" height="500">
+  <img src="https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/04434b88-4913-4eb2-9af2-a2b67ff70cd9" width="400" height="400">
 </p>
 
 - **Description:** Row-view disease detection model with YOLOv8
