@@ -64,6 +64,20 @@ The objetive of these models is to detect if the plant row image is diseased in 
 
 
 
+- _[Row-view disease detection model with YOLOv8](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/Vineyard_dataset_project/models/best.pt)_
+    - **Description:** Row-view disease detection model with YOLOv8
+    - **Accuracy:** 
+    - **Dataset used:** []()
+    - **Specs:**
+      - **Input:** Images size (800,800,3)
+      - **Output:** Labels [0 = diseased, 1 = healthy]
+      - **Method:** YOLOv8
+      - **Type:** Classification
+    - **Date:** 22/12/2023
+    - **Author:** [Esther Vera](https://github.com/EstherNoumena) <br><br>
+
+
+
 
 
 
