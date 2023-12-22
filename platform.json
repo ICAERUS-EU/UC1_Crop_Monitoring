@@ -1,0 +1,30 @@
+{
+    "title":"Plant disease detection with YOLOv8",
+    "creator": "Esther Vera",
+    "date": "22/12/1999",
+    "icon":"https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/04434b88-4913-4eb2-9af2-a2b67ff70cd9",
+    "icaerus_applications": ["crop-monitoring"],// one or more fromt eh icaerus application the algorithm relates to
+    "uses_cases":["1"],//one or more uses cases the algorithm was used for
+    "extra":{// whatever key-value information you want to pass for the algorithm
+        "key1":"",
+        "key2":""
+    },
+    "filters":{
+        "content": [// A few suggestions from the UCs, perhaps it does not fit for the proposed model, then do not use it.
+            "Deep learning",
+            "Computer vision",
+            "Detection"  
+            ],  
+        "data-type": [ // A few suggestions from the UCs, perhaps it does not fit for the proposed model, then do not use it.
+            "RGB images"
+        ], 
+
+        "subject": [  // A few suggestions from the UCs, perhaps it does not fit for the proposed model, then do not use it.
+            "Vineyards",
+        ],
+
+        "location": [
+            "Spain", 
+            ], // I think we should start with just country, perhaps narrow down later if it gets messy: but this is a 1:1 relatoinship to UC anyway
+
+}
