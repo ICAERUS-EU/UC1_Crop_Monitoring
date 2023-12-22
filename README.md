@@ -39,46 +39,39 @@ The models developed for crop monitoring are splitted in three groups depending 
  
 
 
-
-
-
 ### Row-View Level
-For the row-view level detection, the images used are similar to the one shown below.
+#### _[Row-view disease detection model with RF](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/Vineyard_dataset_project/VIEW_ROW/row_view_detection)_
+
 <p align="center">
   <img src="https://github.com/EstherNoumena/UC1_Crop_Monitoring/assets/148956768/4d0014d9-d34b-4fdb-86dd-6d3a86e71a07">
 </p>
-The objetive of these models is to detect if the plant row image is diseased in general or healthy. <br>
+
+-**Description:** Row-view disease detection model with RF
+- **Accuracy:** 0.81
+- **Dataset used:** []()
+- **Specs:**
+  - **Input:** Images size (617,106,3)
+  - **Output:** Labels [0 = normal,1 = diseased]
+  - **Method:** RF
+  - **Type:** Classification
+- **Date:** 25/10/2023
 
 
-- _[Row-view disease detection model with RF](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/Vineyard_dataset_project/VIEW_ROW/row_view_detection)_
-    - **Description:** Row-view disease detection model with RF
-    - **Accuracy:** 0.81
-    - **Dataset used:** []()
-    - **Specs:**
-      - **Input:** Images size (617,106,3)
-      - **Output:** Labels [0 = normal,1 = diseased]
-      - **Method:** RF
-      - **Type:** Classification
-    - **Date:** 25/10/2023
-    - **Author:** [Esther Vera](https://github.com/EstherNoumena) <br><br>
+#### _[Row-view disease detection model with YOLOv8](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/Vineyard_dataset_project/models/best.pt)_
 
+<p align="center">
+  <img src="https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/04434b88-4913-4eb2-9af2-a2b67ff70cd9" width="500" height="500">
+</p>
 
-
-- _[Row-view disease detection model with YOLOv8](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/Vineyard_dataset_project/models/best.pt)_
-    - **Description:** Row-view disease detection model with YOLOv8
-    - **Accuracy:** 
-    - **Dataset used:** []()
-    - **Specs:**
-      - **Input:** Images size (800,800,3)
-      - **Output:** Labels [0 = diseased, 1 = healthy]
-      - **Method:** YOLOv8
-      - **Type:** Classification
-    - **Date:** 22/12/2023
-    - **Author:** [Esther Vera](https://github.com/EstherNoumena) <br><br>
-
-
-
-
+- **Description:** Row-view disease detection model with YOLOv8
+- **Accuracy:**
+- **Dataset used:** []()
+- **Specs:**
+    - **Input:** Images size (800,800,3)
+    - **Output:** Labels [0 = diseased, 1 = healthy]
+    - **Method:** YOLOv8
+    - **Type:** Detection and classification
+  - **Date:** 22/12/2023
 
 
 
