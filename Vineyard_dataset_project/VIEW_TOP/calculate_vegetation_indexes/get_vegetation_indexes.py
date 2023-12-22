@@ -80,23 +80,34 @@ def main():
     ortho_image_res, r_image_res, g_image_res, b_image_res, mask_res =  gdp.read_orthomosaic(tif_path)
     print(ortho_image_res.shape)
 
+
     # Load NIR 
     tif_path = base_path_images +'cropped_NIR_orthomosaic_230609.tif'
     nir_image_res =  gdp.read_orthomosaic_onechannel(tif_path)
     nir_image_res = ((nir_image_res / 65535.0) * 255.0).astype(np.uint8)
+    print(nir_image_res.shapes)
 
 
     # Load spectral R
     tif_path = base_path_images + 'cropped_R_orthomosaic_230609.tif'
     r_spectral_res =  gdp.read_orthomosaic_onechannel(tif_path)
+    r_spectral_res = ((r_spectral_res / 65535.0) * 255.0).astype(np.uint8)
     print(r_spectral_res.shape)
 
 
-    # Load RE
-    '''tif_path = base_path_images + 'cropped_RE_orthomosaic_230609.tif'
-    re_image_res =  gdp.read_orthomosaic_onechannel(tif_path)
-    print(re_image_res.shape)'''
+    # Load spectral G
+    tif_path = base_path_images + 'cropped_G_orthomosaic_230609.tif'
+    g_spectral_res =  gdp.read_orthomosaic_onechannel(tif_path)
+    g_spectral_res = ((g_spectral_res / 65535.0) * 255.0).astype(np.uint8)
+    print(g_spectral_res.shape)
 
+
+    # Load RE
+    tif_path = base_path_images + 'cropped_RE_orthomosaic_230609.tif'
+    re_image_res =  gdp.read_orthomosaic_onechannel(tif_path)
+    re_image_res = ((re_image_res / 65535.0) * 255.0).astype(np.uint8)
+
+   
 
     # Resize images
     '''ortho_image_res = cv2.resize(ortho_image_res, None, fx = 0.2, fy = 0.2)
@@ -109,7 +120,6 @@ def main():
     mask_res = cv2.resize(mask_res, None, fx = 0.2, fy = 0.2)'''
     mask_res_rgb = cv2.cvtColor(mask_res, cv2.COLOR_GRAY2RGB)
         
-    print(nir_image_res.shape)
 
 
     # Calculate vegetation indexes
@@ -124,42 +134,38 @@ def main():
     ndvi_final = apply_colormap(ndvi_image, mask_res_rgb, 0, 255)
     save_colormap(ndvi_final, 'ndvi_map.png', False)
 
-    ndvi_final = apply_colormap(ndvi_image, mask_res_rgb, -5, 20)
-    save_colormap(ndvi_final, 'ndvi_map_-5_20.png', True)
 
-
-  
 
     # Calculate gndvi
-    '''gndvi_image = gndvi(nir_image_res, g_image_res)
+    gndvi_image = gndvi(nir_image_res, g_spectral_res)
     gndvi_image = normalize_image(gndvi_image)
   
     # Get colormap and save
     gndvi_final = apply_colormap(gndvi_image, mask_res_rgb, 0, 255)
-    save_colormap(gndvi_final, 'gndvi_map.png', True)
+    save_colormap(gndvi_final, 'gndvi_map.png', False)
 
   
 
     # Calculate ndwi
-    ndwi_image = ndwi(nir_image_res, g_image_res)
+    ndwi_image = ndwi(nir_image_res, g_spectral_res)
     ndwi_image = normalize_image(ndwi_image)
   
     # Get colormap and save
     ndwi_final = apply_colormap(np.max(ndwi_image) - ndwi_image, mask_res_rgb, 0, 255)
-    save_colormap(ndwi_final, 'ndwi_map.png', True)'''
+    save_colormap(ndwi_final, 'ndwi_map.png', False)
 
+    
 
-
-    '''# Calculate ndre
+    # Calculate ndre
     ndre_image = ndre(nir_image_res, re_image_res)
     ndre_image = normalize_image(ndre_image)
   
     # Get colormap and save
-    ndre_final = apply_colormap(ndre_image, mask_res_rgb, 0, 50)
+    ndre_final = apply_colormap(ndre_image, mask_res_rgb, 0, 255)
     save_colormap(ndre_final, 'ndre_map.png', True)
-    '''
+    
 
-  
+
     # Calculate vari
     vari_image = vari(r_image_res, g_image_res, b_image_res)
     vari_image = normalize_image(vari_image)
@@ -174,16 +180,16 @@ def main():
     ##########################################################################3
 
     # RGB
-    cv2.imwrite('ortho_image_rgb.png', ortho_image_res)
-    cv2.imwrite('r_ortho_image.png', r_image_res)
-    cv2.imwrite('g_ortho_image.png', g_image_res)
-    cv2.imwrite('b_ortho_image.png', b_image_res)
+    #cv2.imwrite('ortho_image_rgb.png', ortho_image_res)
+    #cv2.imwrite('r_ortho_image.png', r_image_res)
+    #cv2.imwrite('g_ortho_image.png', g_image_res)
+    #cv2.imwrite('b_ortho_image.png', b_image_res)
 
     # SPECTRAL 
-    cv2.imwrite('nir_ortho_image.png', nir_image_res)
-    cv2.imwrite('r_spectral_ortho_image.png', r_spectral_res)
+    #cv2.imwrite('nir_ortho_image.png', nir_image_res)
+    #cv2.imwrite('r_spectral_ortho_image.png', r_spectral_res)
     #cv2.imwrite('g_spectral_ortho_image.png', g_spectral_res)
-    #cv2.imwrite('re_ortho_image.png', re_res)
+    #cv2.imwrite('re_ortho_image.png', re_image_res)
 
     
 

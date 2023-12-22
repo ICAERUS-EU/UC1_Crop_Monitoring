@@ -9,7 +9,7 @@ import cv2
 
 class ParcelProcessor:
 
-    def __init__(self, ndvi_limit=0):   
+    def __init__(self, ndvi_limit=-1.2):   
         self.NDVI_LIM = ndvi_limit
 
 
@@ -37,22 +37,9 @@ class ParcelProcessor:
         
         labels = []
         for i, value in enumerate(ndvi_parcels):
-            '''if(value<0.1):
+            if(value>0.35):
                 labels.append(0)
-            elif(value<0.2): 
-             labels.append(1)    
-            else: 
-                labels.append(2)'''
-            '''if(value>-0.28):
-                labels.append(0)
-            elif(value>-0.35): 
-             labels.append(1)    
-            else: 
-                labels.append(2)'''
-
-            if(value>-0.978):
-                labels.append(0)
-            elif(value>-0.985): 
+            elif(value>0.25): 
                 labels.append(1)    
             else: 
                 labels.append(2)
@@ -65,7 +52,7 @@ class ParcelProcessor:
 
 
 
-    def calculate_mean_per_parcel(self, array_aux, all_parcels, ndvi_process): 
+    def calculate_mean_per_parcel(self, array_aux, all_parcels, lai_process): 
         
         h, w = array_aux.shape[0:2]
 
@@ -78,11 +65,10 @@ class ParcelProcessor:
             masked_parcel = cv2.bitwise_and(array_aux, array_aux, mask=parcel_mask)
             area_parcel = np.count_nonzero(masked_parcel)
             
-            # If DEM is processing, calculate the mean elevation value of the parcel
-            if(not ndvi_process):
+
+            if(not lai_process):
                 value = np.sum(masked_parcel) / area_parcel
 
-            # If NDVI is processing, calculate the mean ndvi value of the parcel
             else: 
                 all_values = masked_parcel[masked_parcel > self.NDVI_LIM].tolist()
                 '''for row in masked_parcel:

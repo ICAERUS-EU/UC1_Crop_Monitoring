@@ -361,3 +361,50 @@ def get_parcel_rows_image(ortho_image_res, filtered_rows_image, PARCEL_LEN):
     return parcel_rows_image, all_parcel_points
 
     
+
+def sort_parcel_points(all_parcel_points): 
+    """
+    Draws parcel rectangles in each vineyard row.
+
+    Args:
+        filtered_rows_image (numpy.darray): 
+        PARCEL_LEN (const int): 
+
+    Returns:
+        parcel_rows_image (numpy.darray): 
+    """
+
+    sorted_parcel_points = sorted(all_parcel_points, key=lambda x: x[0][0][1], reverse=False)
+
+    right_parcels = []
+    idx_right = []
+    for k in range(len(sorted_parcel_points)):
+        if(sorted_parcel_points[k][0][0][0] > 1400):
+            idx_right.append(k)
+
+
+    sort_idx_right = sorted(idx_right)
+    print("sort_idx_right", sort_idx_right)
+
+    for idx in reversed(sort_idx_right): 
+        right_parcels.append(sorted_parcel_points.pop(idx))
+
+
+    right_parcels = sorted(right_parcels, key=lambda x: x[0][0][1], reverse=False)
+
+
+
+    new_parcel_points = []
+    for k in range(len(sorted_parcel_points)):
+
+        if(k>1 and len(right_parcels)>0):
+            print(k)
+            print("here")
+            new_parcel_points.append(right_parcels.pop(0))
+
+        new_parcel_points.append(sorted_parcel_points[k])
+    print(len(new_parcel_points))
+    print(len(sorted_parcel_points))
+    print(len(all_parcel_points))
+
+    return new_parcel_points

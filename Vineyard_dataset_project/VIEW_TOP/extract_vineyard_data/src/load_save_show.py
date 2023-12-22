@@ -77,8 +77,9 @@ def draw_labelled_parcels(ortho_image_res, all_parcels, labels):
             # GREEN (HEALTHY)
             color_parcel = [0,255,0]
                             
+        #color_parcel = [0,165,255]
+
         cv2.polylines(ortho_image_parcels, [np.array(parcel)], isClosed=True, color=color_parcel, thickness=2)
-        #cv2.putText(ortho_image_parcels, str(i), (parcel[0][0], parcel[0][1]), cv2.FONT_HERSHEY_SIMPLEX, 0.2, (255,255,255), 1)
 
         center_x = int((parcel[0][0] + parcel[2][0]) / 2) - 2
         center_y = int((parcel[0][1] + parcel[2][1]) / 2) + 2

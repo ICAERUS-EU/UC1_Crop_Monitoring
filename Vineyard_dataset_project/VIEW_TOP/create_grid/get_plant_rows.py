@@ -18,7 +18,7 @@ import rasterio
 
 from src.utils import load_config
 from src.vegetation_indices import ndvi
-from src.grid import get_coordinates_row, get_parallel_rows, mask_ortho_image_rows, get_filtered_rows, get_parcel_rows_image
+from src.grid import get_coordinates_row, get_parallel_rows, mask_ortho_image_rows, get_filtered_rows, get_parcel_rows_image,sort_parcel_points
 
 select_points = False 
 #select_points = True
@@ -119,21 +119,27 @@ def main():
 
     ################################## 
 
+    print(masked_rows_image.shape)
+
     # Get vineyards rows calculated 
     filtered_rows_image = get_filtered_rows(masked_rows_image)
     parcel_rows_image, parcel_points = get_parcel_rows_image(ortho_image_res, filtered_rows_image, PARCEL_LEN)
 
+
+    sorted_parcel_points = sort_parcel_points(parcel_points)
+    print(sorted_parcel_points)
+
     # Guardar la lista en un archivo JSON
     with open(base_path_features + 'parcel_points.json', 'w') as f:
-        json.dump(parcel_points, f)
+        json.dump(sorted_parcel_points, f)
 
-    cv2.imshow('masked_rows_image', masked_rows_image)
-    cv2.imshow('parcel_rows_image', parcel_rows_image)
-    cv2.imwrite('masked_rows_image.jpg', masked_rows_image)
-    cv2.imwrite('parcel_rows_image.jpg', parcel_rows_image)
+    #cv2.imshow('masked_rows_image', masked_rows_image)
+    '''cv2.imshow('parcel_rows_image', parcel_rows_image)
+    #cv2.imwrite('masked_rows_image.jpg', masked_rows_image)
+    cv2.imwrite('parcel_rows_image2.jpg', parcel_rows_image)
 
     cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    cv2.destroyAllWindows()'''
 
 
 

@@ -76,9 +76,9 @@ def main():
 
     #print(lai)
 
-    #X = np.column_stack((elevation, ndvi_values, lai))
-    #X = np.column_stack((elevation, lai))
-    X = np.array(elevation).reshape(-1,1)   
+    X = np.column_stack((elevation, ndvi_values, lai))
+    X = np.column_stack((ndvi_values, lai))
+    #X = np.array(elevation).reshape(-1,1)   
     y = labels
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
@@ -95,6 +95,8 @@ def main():
     y_pred = rf.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     print("Accuracy:", accuracy)
+    print(y_pred)
+    print(y_test)
 
 
 

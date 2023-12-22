@@ -67,7 +67,7 @@ img_path = base_path_images + 'NDVI_orthomosaic_cropped_230609.tif'
 img_ndvi = (cv2.resize(cv2.imread(img_path), (2346, 1805)))
 
 # Load parcels image
-img_path = base_path_images_saved + 'parcel_rows_image_text.jpg'
+img_path = base_path_images_saved + 'ortho_grid_text_image_parcels.jpg'
 img_parcels = cv2.imread(img_path)
 img_parcels = cv2.resize(img_parcels, (2346, 1805))
 
