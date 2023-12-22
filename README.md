@@ -55,8 +55,6 @@ The models developed for crop monitoring are splitted in three groups depending 
   - **Method:** RF
   - **Type:** Classification
 - **Date:** 25/10/2023
-- **Author:** [Esther Vera](https://github.com/EstherNoumena) <br><br>
-
 
 
 #### _[Row-view disease detection model with YOLOv8](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/Vineyard_dataset_project/models/best.pt)_
@@ -74,8 +72,6 @@ The models developed for crop monitoring are splitted in three groups depending 
     - **Method:** YOLOv8
     - **Type:** Classification
   - **Date:** 22/12/2023
-  - **Author:** [Esther Vera](https://github.com/EstherNoumena) <br><br>
-
 
 
 
