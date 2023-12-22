@@ -48,7 +48,6 @@ The models developed for crop monitoring are splitted in three groups depending 
 
 -**Description:** Row-view disease detection model with RF
 - **Accuracy:** 0.81
-- **Dataset used:** []()
 - **Specs:**
   - **Input:** Images size (617,106,3)
   - **Output:** Labels [0 = normal,1 = diseased]
@@ -64,8 +63,6 @@ The models developed for crop monitoring are splitted in three groups depending 
 </p>
 
 - **Description:** Row-view disease detection model with YOLOv8
-- **Accuracy:**
-- **Dataset used:** []()
 - **Specs:**
     - **Input:** Images size (800,800,3)
     - **Output:** Labels [0 = diseased, 1 = healthy]
