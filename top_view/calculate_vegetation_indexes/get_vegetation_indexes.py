@@ -11,13 +11,10 @@ __license__ = "MIT"
 
 import cv2
 import numpy as np
-import copy
-from tqdm import tqdm 
-import matplotlib.pyplot as plt
-from matplotlib.colors import Normalize
 
-from src.vegetation_indices import ndvi, gndvi, ndre, ndwi, vari
-from src.geodataprocessor import GeoDataProcessor
+from src.orthomosaic_processor import OrthomosaicProcessor
+from src.colormaps import apply_colormap, save_colormap
+from src.vegetation_indices import VegetationIndices
 
 
 # Setup paths
@@ -27,148 +24,87 @@ base_path_features = base_path + 'features/'
 
 
 
-# FUNCTIONS
-##################################################################################################################
-
-def normalize_image(img): 
-    min_val = np.min(img)
-    range_val = np.max(img) - min_val
-    norm_image = (((img - min_val) / range_val)*255).astype(np.uint8)
-
-    return norm_image
-
-def apply_colormap(img, mask_res_rgb, vmin, vmax):
-        
-    # Prepare colormap and normalization
-    colormap = plt.get_cmap('RdYlGn')  
-    norm = Normalize(vmin=vmin, vmax=vmax)  
-    colormap_norm = (np.array(colormap(norm(img))) * 255).astype(np.uint8)
-    colormap_norm = colormap_norm[:, :, :-1]
-
-    # Transform from gray to rgb and copy
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_GRAY2RGB)
-
-    # Apply coloramp to mask region in img_rgb 
-    img_colormap_black = np.where(mask_res_rgb != 0, colormap_norm, img_rgb)
-
-    # Changes black background to white background
-    white_image = np.ones_like(img_colormap_black) * 255
-    img_colormap_white = np.where(mask_res_rgb != 0, img_colormap_black, white_image)
-
-    return img_colormap_white
-
-def save_colormap(img, output_name, show=False): 
-
-    fig, ax = plt.subplots(figsize=(27.91, 18.35), tight_layout=True)
-    ax.imshow(img)
-    ax.axis('off')
-    fig.savefig(output_name, bbox_inches='tight', pad_inches=0)
-    if show: 
-        plt.show()
-
-
 # MAIN
 ##################################################################################################################
 
 def main():
 
+    # Variables
+    tam = (2346, 1805)
+    op = OrthomosaicProcessor()
+    vi = VegetationIndices()
+
     # Load images
     ##########################################################################
-    gdp = GeoDataProcessor()
-
     tif_path = base_path_images + 'orthomosaic_cropped_230609.tif'
-    ortho_image_res, r_image_res, g_image_res, b_image_res, mask_res =  gdp.read_orthomosaic(tif_path)
+    ortho_image, r_image, g_image, b_image, mask = op.read_orthomosaic(tif_path)
+    ortho_image_res, r_image_res, g_image_res, b_image_res, mask_res = op.resize_orthomosaic(ortho_image, r_image, g_image, b_image, mask, tam)
+    mask_res_rgb = cv2.cvtColor(mask_res, cv2.COLOR_GRAY2RGB)
     print(ortho_image_res.shape)
-
 
     # Load NIR 
     tif_path = base_path_images +'cropped_NIR_orthomosaic_230609.tif'
-    nir_image_res =  gdp.read_orthomosaic_onechannel(tif_path)
-    nir_image_res = ((nir_image_res / 65535.0) * 255.0).astype(np.uint8)
-    print(nir_image_res.shapes)
-
+    nir_image = op.read_one_channel_orthomosaic(tif_path)
+    nir_image_res = op.resize_and_convert_type(nir_image, tam)
 
     # Load spectral R
     tif_path = base_path_images + 'cropped_R_orthomosaic_230609.tif'
-    r_spectral_res =  gdp.read_orthomosaic_onechannel(tif_path)
-    r_spectral_res = ((r_spectral_res / 65535.0) * 255.0).astype(np.uint8)
-    print(r_spectral_res.shape)
-
+    r_spectral = op.read_one_channel_orthomosaic(tif_path)
+    r_spectral_res = op.resize_and_convert_type(r_spectral, tam)
 
     # Load spectral G
     tif_path = base_path_images + 'cropped_G_orthomosaic_230609.tif'
-    g_spectral_res =  gdp.read_orthomosaic_onechannel(tif_path)
-    g_spectral_res = ((g_spectral_res / 65535.0) * 255.0).astype(np.uint8)
-    print(g_spectral_res.shape)
-
+    g_spectral = op.read_one_channel_orthomosaic(tif_path)
+    g_spectral_res = op.resize_and_convert_type(g_spectral, tam)
 
     # Load RE
     tif_path = base_path_images + 'cropped_RE_orthomosaic_230609.tif'
-    re_image_res =  gdp.read_orthomosaic_onechannel(tif_path)
-    re_image_res = ((re_image_res / 65535.0) * 255.0).astype(np.uint8)
-
-   
-
-    # Resize images
-    '''ortho_image_res = cv2.resize(ortho_image_res, None, fx = 0.2, fy = 0.2)
-    r_image_res = cv2.resize(r_image_res, None,  fx = 0.2, fy = 0.2)
-    g_image_res = cv2.resize(g_image_res, None,  fx = 0.2, fy = 0.2)
-    b_image_res = cv2.resize(b_image_res, None,  fx = 0.2, fy = 0.2)
-    nir_image_res = cv2.resize(nir_image_res, None, fx = 0.2, fy = 0.2)
-    r_spectral_res = cv2.resize(r_spectral_res, None,  fx = 0.2, fy = 0.2)
-
-    mask_res = cv2.resize(mask_res, None, fx = 0.2, fy = 0.2)'''
-    mask_res_rgb = cv2.cvtColor(mask_res, cv2.COLOR_GRAY2RGB)
-        
-
+    re_image = op.read_one_channel_orthomosaic(tif_path)
+    re_image_res = op.resize_and_convert_type(re_image, tam)
+  
 
     # Calculate vegetation indexes
     ##########################################################################
     
-
     # Calculate nvdi
-    ndvi_image = ndvi(nir_image_res, r_spectral_res)
-    ndvi_image = normalize_image(ndvi_image)
+    ndvi_image = vi.ndvi(nir_image_res, r_spectral_res)
+    ndvi_image = op.normalize_image(ndvi_image)
   
     # Get colormap and save
     ndvi_final = apply_colormap(ndvi_image, mask_res_rgb, 0, 255)
     save_colormap(ndvi_final, 'ndvi_map.png', False)
 
 
-
     # Calculate gndvi
-    gndvi_image = gndvi(nir_image_res, g_spectral_res)
-    gndvi_image = normalize_image(gndvi_image)
+    gndvi_image = vi.gndvi(nir_image_res, g_spectral_res)
+    gndvi_image = op.normalize_image(gndvi_image)
   
     # Get colormap and save
     gndvi_final = apply_colormap(gndvi_image, mask_res_rgb, 0, 255)
     save_colormap(gndvi_final, 'gndvi_map.png', False)
 
   
-
     # Calculate ndwi
-    ndwi_image = ndwi(nir_image_res, g_spectral_res)
-    ndwi_image = normalize_image(ndwi_image)
+    ndwi_image = vi.ndwi(nir_image_res, g_spectral_res)
+    ndwi_image = op.normalize_image(ndwi_image)
   
     # Get colormap and save
     ndwi_final = apply_colormap(np.max(ndwi_image) - ndwi_image, mask_res_rgb, 0, 255)
     save_colormap(ndwi_final, 'ndwi_map.png', False)
 
-    
 
     # Calculate ndre
-    ndre_image = ndre(nir_image_res, re_image_res)
-    ndre_image = normalize_image(ndre_image)
+    ndre_image = vi.ndre(nir_image_res, re_image_res)
+    ndre_image = op.normalize_image(ndre_image)
   
     # Get colormap and save
     ndre_final = apply_colormap(ndre_image, mask_res_rgb, 0, 255)
     save_colormap(ndre_final, 'ndre_map.png', True)
     
 
-
     # Calculate vari
-    vari_image = vari(r_image_res, g_image_res, b_image_res)
-    vari_image = normalize_image(vari_image)
+    vari_image = vi.vari(r_image_res, g_image_res, b_image_res)
+    vari_image = op.normalize_image(vari_image)
   
     # Get colormap and save
     vari_final = apply_colormap(vari_image, mask_res_rgb, 0, 255)
@@ -194,9 +130,6 @@ def main():
     
 
     
-
-
-
 
 if __name__ == "__main__":
     main()
