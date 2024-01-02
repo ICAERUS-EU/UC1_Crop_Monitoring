@@ -5,7 +5,7 @@
     <h3 align="center">UC1: Crop Monitoring📷</h3>
     
    <p align="center">
-    Some text....
+    This repository contains Crop Monitoring models developed with drone images and computer vision 
     <br/>
     <br/>
     <br/>
@@ -22,38 +22,27 @@
 ## Table Of Contents
 
 * [Summary](#summary)
+* [Structure](#structure)
 * [Models](#models)
 * [Authors](#authors)
 * [Acknowledgements](#acknowledgements)
 
 ## Summary
+In this repository you can find some models and calculation tools for crop monitoring tasks in order to predict the healthiness of vineyards with images taken with drones. 
 
+## Structure
+The repository folders are structured as follow: 
+
+- data
+- row_view
+- top_view
+- Models
+- platform.json
 
 ## Models
 
-The models developed for crop monitoring are splitted in three groups depending on the detection level approached.
-
-### Top-View Level
-
-
+The models have been divided depending on the detection level approached. Here you can find some examples of the outcome for each model and its specifications. 
  
-
-
-### Row-View Level
-#### _[Row-view disease detection model with RF](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/Vineyard_dataset_project/VIEW_ROW/row_view_detection)_
-
-<p align="center">
-  <img src="https://github.com/EstherNoumena/UC1_Crop_Monitoring/assets/148956768/4d0014d9-d34b-4fdb-86dd-6d3a86e71a07">
-</p>
-
--**Description:** Row-view disease detection model with RF
-- **Accuracy:** 0.81
-- **Specs:**
-  - **Input:** Images size (617,106,3)
-  - **Output:** Labels [0 = normal,1 = diseased]
-  - **Method:** RF
-  - **Type:** Classification
-- **Date:** 25/10/2023
 
 
 #### _[Row-view disease detection model with YOLOv8](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/Vineyard_dataset_project/models/best.pt)_
@@ -70,12 +59,6 @@ The models developed for crop monitoring are splitted in three groups depending 
     - **Type:** Detection and classification
   - **Date:** 22/12/2023
 
-
-
-### Plant-View Level
-
-
- 
 
 
 
