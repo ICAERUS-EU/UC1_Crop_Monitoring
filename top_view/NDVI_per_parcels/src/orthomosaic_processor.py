@@ -1,11 +1,8 @@
-
-
 import cv2
 import rasterio
 import json
 from osgeo import gdal
 import copy 
-import pandas as pd
 import numpy as np
 
 
@@ -21,7 +18,8 @@ class OrthomosaicProcessor:
         return file_content
 
 
-    def read_orthomosaic(self, tif_path):
+    @staticmethod
+    def read_orthomosaic(tif_path):
         with rasterio.open(tif_path) as src:
             red_band = src.read(1)
             green_band = src.read(2)
@@ -31,7 +29,8 @@ class OrthomosaicProcessor:
 
         return rgb_image, red_band, green_band, blue_band, mask
 
-    def resize_orthomosaic(self, ortho_image, r_image, g_image, b_image, mask, tam=(2346, 1805)):
+    @staticmethod
+    def resize_orthomosaic(ortho_image, r_image, g_image, b_image, mask, tam=(2346, 1805)):
         ortho_image_res = cv2.resize(ortho_image, tam)
         r_image_res = cv2.resize(r_image, tam)
         g_image_res = cv2.resize(g_image, tam)
@@ -40,12 +39,14 @@ class OrthomosaicProcessor:
 
         return ortho_image_res, r_image_res, g_image_res, b_image_res, mask_res
 
-    def read_one_channel_orthomosaic(self, tif_path):
+    @staticmethod
+    def read_one_channel_orthomosaic(tif_path):
         with rasterio.open(tif_path) as src:
             img = src.read(1)
         return img
 
-    def resize_and_convert_type(self, img, tam=(2346, 1805)):
+    @staticmethod
+    def resize_and_convert_type(img, tam=(2346, 1805)):
         img_res = cv2.resize(img, tam)
         img_res = ((img_res / 65535.0) * 255.0).astype(np.uint8)
         return img_res
@@ -58,7 +59,19 @@ class OrthomosaicProcessor:
         dataset = None
         return dem
     
+    @staticmethod
+    def resize_and_convert_type(img, tam=(2346, 1805)):
+        img_res = cv2.resize(img, tam)
+        img_res = ((img_res / 65535.0) * 255.0).astype(np.uint8)
+        return img_res
+    
+    @staticmethod
+    def normalize_image(img):
+        min_val = np.min(img)
+        range_val = np.max(img) - min_val
+        norm_image = (((img - min_val) / range_val) * 255).astype(np.uint8)
 
+        return norm_image
 
 
 
