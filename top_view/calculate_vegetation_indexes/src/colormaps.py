@@ -5,7 +5,7 @@ from matplotlib.colors import Normalize
 import numpy as np 
 
 
-def apply_colormap(self, img, mask_res_rgb, vmin, vmax):
+def apply_colormap(img, mask_res_rgb, vmin=0, vmax=255):
     colormap = plt.get_cmap('RdYlGn')
     norm = Normalize(vmin=vmin, vmax=vmax)
     colormap_norm = (np.array(colormap(norm(img))) * 255).astype(np.uint8)
@@ -20,7 +20,7 @@ def apply_colormap(self, img, mask_res_rgb, vmin, vmax):
 
     return img_colormap_white
 
-def save_colormap(self, img, output_name, show=False):
+def save_colormap(img, output_name, show=False):
     fig, ax = plt.subplots(figsize=(27.91, 18.35), tight_layout=True)
     ax.imshow(img)
     ax.axis('off')

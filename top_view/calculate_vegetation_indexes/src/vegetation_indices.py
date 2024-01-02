@@ -37,6 +37,7 @@ import numpy as np
 
 
 class VegetationIndices:
+   
     @staticmethod
     def ndvi(nir, r_spectral): 
         """
