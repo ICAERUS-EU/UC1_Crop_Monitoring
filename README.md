@@ -50,7 +50,7 @@ The models have been divided depending on the detection level approached. Here y
 
 #### _[Row-view disease detection model with YOLOv8](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/Vineyard_dataset_project/models/best.pt)_
 
-- **Description:** Row-view disease detection model with YOLOv8
+- **Description:** Row-view disease detection model with YOLOv8. You can find the training and inference [here](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/row_view/row_view_detection_model_yolov8.ipynb). 
 - **Dataset:** ...
 - **Input:** Images size (800,800,3)
 - **Output:** Labels [0 = diseased, 1 = healthy]
