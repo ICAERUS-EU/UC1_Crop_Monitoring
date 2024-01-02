@@ -306,22 +306,21 @@ def get_total_parcels_and_deltas(all_corners, PARCEL_LEN):
 
 
 
-def get_parcel_rows_image(ortho_image_res, filtered_rows_image, PARCEL_LEN): 
+def get_all_parcel_points(filtered_rows_image, PARCEL_LEN): 
     """
-    Draws parcel rectangles in each vineyard row.
+    Calculates the position for each parcel in the image.
 
     Args:
-        filtered_rows_image (numpy.darray): 
-        PARCEL_LEN (const int): 
+        filtered_rows_image (numpy.darray): image with each row.
+        PARCEL_LEN (const int): size of the parcel.
 
     Returns:
-        parcel_rows_image (numpy.darray): 
+        sorted_parcel_points (numpy.darray): array containing the coordinates for each parcel.
     """
 
     all_parcel_points = []
-    # Copy image and detects edges and contours
-    parcel_rows_image = copy.deepcopy(ortho_image_res)
 
+    # Detects edges and contours
     edges = cv2.Canny(filtered_rows_image,10,50) 
     contours = cv2.findContours(edges,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)[0]
 
@@ -342,36 +341,29 @@ def get_parcel_rows_image(ortho_image_res, filtered_rows_image, PARCEL_LEN):
 
         # For each parcel in the row
         for k in range(total_parcels):
-            total = total+1
             # Calculates the parcel points and draw the rectangle
             parcel = get_parcel_points(k, total_parcels, all_corners, deltas, PARCEL_LEN)
-            #cv2.polylines(parcel_rows_image, [parcel], isClosed=True, color=[255,0,0], thickness=1)
-            cv2.polylines(parcel_rows_image, [parcel], isClosed=True, color=[0,170,255], thickness=2)
-
-            center_x = int((parcel[0][0] + parcel[2][0]) / 2) - 2
-            center_y = int((parcel[0][1] + parcel[2][1]) / 2) + 2
-            center = (center_x, center_y)
-
-            cv2.putText(parcel_rows_image, str(total), center, cv2.FONT_HERSHEY_SIMPLEX, 0.23, (255,255,255), 1)
-
+           
             # Saves parcel points
             all_parcel_points[-1].append(parcel.tolist())
         
 
-    return parcel_rows_image, all_parcel_points
+    # Sort parcel points
+    sorted_parcel_points = sort_parcel_points(all_parcel_points)
+
+    return sorted_parcel_points
 
     
 
 def sort_parcel_points(all_parcel_points): 
     """
-    Draws parcel rectangles in each vineyard row.
+    Sorts the parcel points depending on the position in the row.
 
     Args:
-        filtered_rows_image (numpy.darray): 
-        PARCEL_LEN (const int): 
+        all_parcel_points (numpy.darray): parcel points unsorted. 
 
     Returns:
-        parcel_rows_image (numpy.darray): 
+        new_parcel_points (numpy.darray): parcel points sorted by coordinates.
     """
 
     sorted_parcel_points = sorted(all_parcel_points, key=lambda x: x[0][0][1], reverse=False)
@@ -384,7 +376,6 @@ def sort_parcel_points(all_parcel_points):
 
 
     sort_idx_right = sorted(idx_right)
-    print("sort_idx_right", sort_idx_right)
 
     for idx in reversed(sort_idx_right): 
         right_parcels.append(sorted_parcel_points.pop(idx))
@@ -392,19 +383,47 @@ def sort_parcel_points(all_parcel_points):
 
     right_parcels = sorted(right_parcels, key=lambda x: x[0][0][1], reverse=False)
 
-
-
     new_parcel_points = []
     for k in range(len(sorted_parcel_points)):
-
         if(k>1 and len(right_parcels)>0):
-            print(k)
-            print("here")
             new_parcel_points.append(right_parcels.pop(0))
-
         new_parcel_points.append(sorted_parcel_points[k])
-    print(len(new_parcel_points))
-    print(len(sorted_parcel_points))
-    print(len(all_parcel_points))
+
 
     return new_parcel_points
+
+
+
+def draw_parcels(ortho_image_res, sorted_parcel_points):
+    """
+    Draws parcel rectangles in each vineyard row.
+
+    Args:
+        ortho_image_res (numpy.darray): orthomosaic image to draw the parcels in. 
+        sorted_parcel_points (numpy.darray): array containing the coordinates for the parcels.
+    Returns:
+        parcel_rows_image (numpy.darray): image with the parcels drawn.
+    """
+
+    # Copy image and detects edges and contours
+    parcel_rows_image = copy.deepcopy(ortho_image_res)
+
+
+    # For each parcel in the row
+    total = 0
+    for k1, row in enumerate(sorted_parcel_points):
+        for k2, parcel in enumerate(row):
+            total = total + 1
+
+            cv2.polylines(parcel_rows_image, [np.array(parcel)], isClosed=True, color=[0,170,255], thickness=2)
+
+            center_x = int((parcel[0][0] + parcel[2][0]) / 2) - 2
+            center_y = int((parcel[0][1] + parcel[2][1]) / 2) + 2
+            center = (center_x, center_y)
+
+            cv2.putText(parcel_rows_image, str(total), center, cv2.FONT_HERSHEY_SIMPLEX, 0.23, (255,255,255), 1)
+
+           
+
+    return parcel_rows_image
+    
