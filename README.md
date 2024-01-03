@@ -48,7 +48,7 @@ The repository folders are structured as follow:
 The models have been divided depending on the detection level approached. Here you can find some examples of the outcome for each model and its specifications. 
  
 
-#### _[Row-view disease detection model with YOLOv8](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/Vineyard_dataset_project/models/best.pt)_
+#### _[Row-view disease detection model with YOLOv8](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/best.pt)_
 
 - **Description:** Row-view disease detection model with YOLOv8. You can find the training and inference [here](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/row_view/row_view_detection_model_yolov8.ipynb). 
 - **Dataset:** ...
