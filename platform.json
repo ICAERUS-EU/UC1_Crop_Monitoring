@@ -1,30 +1,31 @@
 {
-    "title":"Plant disease detection with YOLOv8",
-    "creator": "Esther Vera",
-    "date": "22/12/1999",
-    "icon":"https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/04434b88-4913-4eb2-9af2-a2b67ff70cd9",
-    "icaerus_applications": ["crop-monitoring"],
-    "uses_cases":["1"],
-    "extra":{
-        "key1":"",
-        "key2":""
-    },
-    "filters":{
-        "content": [
-            "Deep learning",
-            "Computer vision",
-            "Detection"  
-            ],  
-        "data-type": [ 
-            "RGB images"
-        ], 
+ "title":"Plant disease detection with YOLOv8",
+ "creator": "Esther Vera",
+ "date": "22/12/1999",
+ "icon":"https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/04434b88-4913-4eb2-9af2-a2b67ff70cd9",
+ "icaerus_applications": ["crop-monitoring"],
+ "uses_cases":["1"],
+ "extra":{
+ "key1":"",
+ "key2":""
+ },
+ "filters":{
+ "content": [
+ "Deep learning",
+ "Computer vision",
+ "Detection" 
+ ], 
+ "data-type": [ 
+ "RGB images"
+ ], 
 
-        "subject": [ 
-            "Vineyards",
-        ],
+ "subject": [ 
+ "Vineyards"
+ ],
 
-        "location": [
-            "Spain", 
-            ], 
-
+ "location": [
+ "Spain"
+ 
+ ] 
+ }
 }
