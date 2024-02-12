@@ -45,7 +45,7 @@ The repository folders are structured as follow:
 
 ## Models
 
-The models have been divided depending on the detection level approached. Here you can find the links and a brief description of each one:
+The [models](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/) developed are the following:
  
 
 #### _[Row-view disease detection model with YOLOv8](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/01_plant_disease_detection_yolov8/)_
