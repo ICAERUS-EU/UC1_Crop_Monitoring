@@ -51,7 +51,7 @@ The models have been divided depending on the detection level approached. Here y
 #### _[Row-view disease detection model with YOLOv8](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/01_plant_disease_detection_yolov8/)_
 This model has been trained with YOLOv8 and is able to detect the plants and provide information about its health status from a plant-view level. 
 
-#### _[Other model test](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/01_other_model_test/)_
+#### _[Other model test](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/02_other_model_test/)_
 This is a test model for platform.json. 
 
 
