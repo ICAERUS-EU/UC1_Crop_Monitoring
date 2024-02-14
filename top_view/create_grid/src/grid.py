@@ -99,8 +99,6 @@ def get_parallel_rows(ortho_image_res, mask, coordinates, VINEYARD_SEP):
     it = -1
     while True:
 
-        print(".")
-
         # Draws the parallel lines in each direction
         if(reached):
             it -= 1
@@ -121,9 +119,6 @@ def get_parallel_rows(ortho_image_res, mask, coordinates, VINEYARD_SEP):
         cv2.line(blank_rows, point1, point2, (255), 2)
         rows_mask = cv2.bitwise_and(blank_rows, blank_rows, mask=smoothed_mask)
         visible_pixels_yx = np.transpose(np.where(rows_mask == 255))
-        print(visible_pixels_yx)
-        print(reached)
-        
 
         if(len(visible_pixels_yx) == 0 and (not reached)):
             reached = True
@@ -136,8 +131,6 @@ def get_parallel_rows(ortho_image_res, mask, coordinates, VINEYARD_SEP):
             # Saves parallel rows points and draw the line
             parallel_rows_points.append([point1, point2])
             cv2.line(ortho_image_rows, point1, point2, (0,0,255), thickness)
-
-
 
     return ortho_image_rows, parallel_rows_points
     
