@@ -49,7 +49,7 @@ def main():
     coordinates, angle = get_coordinates_row(ortho_image_res, select_points)
 
     # Get vineyards rows  
-    ortho_rows_image = get_parallel_rows(ortho_image_res, coordinates, VINEYARD_SEP)
+    ortho_rows_image, parallel_rows_points = get_parallel_rows(ortho_image_res, mask, coordinates, VINEYARD_SEP)
 
     # Mask vineyard rows with shape_mask
     masked_rows_image = mask_ortho_image_rows(ortho_rows_image, mask)
@@ -64,10 +64,13 @@ def main():
     parcel_rows_image = draw_parcels(ortho_image_res, parcel_points)
 
 
-    # Save parcel_points in JSON file insiece base_path_features
+    # Save parcel_points in JSON file inside base_path_features
     with open(base_path_features + 'parcel_points.json', 'w') as f:
         json.dump(parcel_points, f)
 
+    # Save parallel_rows_points 
+    with open(base_path_features + 'parallel_rows_points.json', 'w') as f:
+        json.dump(parallel_rows_points, f)
 
     # Save and show image
     #cv2.imwrite('masked_rows_image.jpg', masked_rows_image)

@@ -49,7 +49,7 @@ def get_coordinates_row(ortho_image_res, select_points):
 
 
 
-def get_parallel_rows(ortho_image_res, coordinates, VINEYARD_SEP):
+def get_parallel_rows(ortho_image_res, mask, coordinates, VINEYARD_SEP):
 
     """
     Gets parallel rows that define the each vineyard rows and shows them in an image.
@@ -62,6 +62,15 @@ def get_parallel_rows(ortho_image_res, coordinates, VINEYARD_SEP):
         ortho_image_rows (numpy.ndarray): A numpy array representing the image with the vineyard rows.
     """
 
+    # Smooth the mask
+    kernel7 = np.ones((7, 7), np.uint8)
+    kernel3 = np.ones((5, 5), np.uint8)
+    smoothed_mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel7)
+    smoothed_mask = cv2.erode(smoothed_mask, kernel3, iterations=5)
+    smoothed_mask = cv2.GaussianBlur(smoothed_mask, (5, 5), 0)
+
+    print("in parallel")
+
     ortho_image_rows = copy.deepcopy(ortho_image_res)
     img_height, img_width, _ = ortho_image_rows.shape
 
@@ -69,6 +78,7 @@ def get_parallel_rows(ortho_image_res, coordinates, VINEYARD_SEP):
     added_length = 6000
     thickness = 2
     thickness = 9
+    parallel_rows_points = []
 
     # Varible to stop drawing parallel lines
     reached = False
@@ -89,6 +99,8 @@ def get_parallel_rows(ortho_image_res, coordinates, VINEYARD_SEP):
     it = -1
     while True:
 
+        print(".")
+
         # Draws the parallel lines in each direction
         if(reached):
             it -= 1
@@ -104,24 +116,30 @@ def get_parallel_rows(ortho_image_res, coordinates, VINEYARD_SEP):
         point1 = (int(x1_parallel), int(y1_parallel))
         point2 = (int(x2_parallel), int(y2_parallel))
 
-        # Draws the parallel line
-        cv2.line(ortho_image_rows, point1, point2, (0,0,255), thickness)
+        # Check if the line is visible 
+        blank_rows = np.zeros((img_height, img_width, 1), dtype=np.uint8)
+        cv2.line(blank_rows, point1, point2, (255), 2)
+        rows_mask = cv2.bitwise_and(blank_rows, blank_rows, mask=smoothed_mask)
+        visible_pixels_yx = np.transpose(np.where(rows_mask == 255))
+        print(visible_pixels_yx)
+        print(reached)
+        
 
-        # If it's in the limits of the image, it changes to substract from it 
-        if(( ( point1[1] >= img_height and point2[1] >= img_height or point1[1] <= 0 and point2[1] <= 0) 
-            or (point1[0] >= img_width and point2[0] >= img_width or point1[0] <= 0 and point2[0] <= 0) ) 
-            and not reached):
-            it = 0
+        if(len(visible_pixels_yx) == 0 and (not reached)):
             reached = True
+            it = 0
 
-        # If it's in the limits of the image again (reached == True), it stops calculating parallel lines 
-        elif(((point1[1] >= img_height and point2[1] >= img_height or point1[1] <= 0 and point2[1] <= 0) 
-              or (point1[0] >= img_width and point2[0] >= img_width or point1[0] <= 0 and point2[0] <= 0) ) 
-             and reached):
+        elif(len(visible_pixels_yx) == 0 and reached):
             break
 
+        else: 
+            # Saves parallel rows points and draw the line
+            parallel_rows_points.append([point1, point2])
+            cv2.line(ortho_image_rows, point1, point2, (0,0,255), thickness)
 
-    return ortho_image_rows
+
+
+    return ortho_image_rows, parallel_rows_points
     
 
 
