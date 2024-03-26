@@ -1,7 +1,7 @@
 
 # Row-view disease detection model with YOLOv8
 
-- **Description:** Row-view disease detection model with YOLOv8. You can find the training and inference [here](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/row_view/row_view_detection_model_yolov8.ipynb). 
+- **Description:** Row-view disease detection model with YOLOv8. You can find the training and inference [here](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/01_plant_disease_detection_yolov8_v1/plant_disease_detection_yolov8_v1.ipynb). 
 - **Dataset:** ...
 - **Input:** Images size (800,800,3)
 - **Output:** Labels [0 = diseased, 1 = healthy]
