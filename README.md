@@ -34,7 +34,6 @@ Within this repository, you'll discover various models and computational tools d
 The repository folders are structured as follow: 
 
 - **data:** *here you can find some labelling data. In addition, you should add to this folder the Zenodo dataset content to train and test the models.* 
-- **row_view:** *it contains the training for plant disease detection.*
 - **top_view:** *it has some top-view level calculations for vegetation analysis*
   - **calculate_vegetation_indexes**
   - **create_grid**
