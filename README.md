@@ -50,7 +50,7 @@ The [models](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/
 #### _[Row-view disease detection model with YOLOv8](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/01_plant_disease_detection_yolov8_v1/)_
 This model has been trained with YOLOv8 and is able to detect the plants and provide information about its health status from a plant-view level. 
 
-#### _[Plant identification from row-view to global-view](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/02_plant_locator_v1/)_
+#### _[Plant identificator and locator from row-view to global-view](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/02_plant_locator_v1/)_
 This model contains the complete workflow from detecting a plant in an image to locate this plant in the global-view orthomosaic to visualize its health status.
 
 
