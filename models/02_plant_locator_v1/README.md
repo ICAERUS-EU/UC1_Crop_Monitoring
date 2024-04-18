@@ -1,4 +1,4 @@
-# 02 PLANT LOCATOR AND IDENTIFICATION FROM ROW-VIEW TO GLOBAL-VIEW
+# 02 PLANT IDENTIFICATOR AND LOCATOR FROM ROW-VIEW TO GLOBAL-VIEW
 
 - **Description:** This model contains the complete workflow from detecting a plant in an image to locate this plant in the global-view orthomosaic to visualize its health status.
 - **Dataset:** -
