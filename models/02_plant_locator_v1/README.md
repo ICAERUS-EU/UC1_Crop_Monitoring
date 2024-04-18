@@ -1,6 +1,6 @@
-# Other model test
+# 02 PLANT LOCATOR AND IDENTIFICATION FROM ROW-VIEW TO GLOBAL-VIEW
 
-- **Description:** -
+- **Description:** This model contains the complete workflow from detecting a plant in an image to locate this plant in the global-view orthomosaic to visualize its health status.
 - **Dataset:** -
 - **Input:** -
 - **Output:** -
