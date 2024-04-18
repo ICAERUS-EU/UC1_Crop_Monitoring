@@ -33,11 +33,11 @@
         }
     },
     {
-        "title": "Other model",
+        "title": "Plant location from row-view to global-view",
         "creator": "Esther Vera",
         "date": "12/02/2024",
         "icon": "https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/04434b88-4913-4eb2-9af2-a2b67ff70cd9",
-        "url": "https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/02_other_model_test_v1",
+        "url": "https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/02_plant_locator_v1",
         "icaerus_applications": [
             "crop-monitoring"
         ],
@@ -52,7 +52,10 @@
             "content": [
                 "Deep learning",
                 "Computer vision",
-                "Detection"
+                "Detection",
+                "Location",
+                "Analysis",
+                "Identification"
             ],
             "data-type": [
                 "RGB images"
