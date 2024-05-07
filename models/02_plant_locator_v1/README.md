@@ -1,12 +1,12 @@
-# 02 PLANT IDENTIFICATOR AND LOCATOR FROM ROW-VIEW TO GLOBAL-VIEW
+# 02 PLANT LOCATOR FROM ROW-VIEW TO GLOBAL-VIEW
 
-- **Description:** This model contains the complete workflow from detecting a plant in an image to locate this plant in the global-view orthomosaic to visualize its health status.
+- **Description:** This algorithm contains the complete workflow from detecting a plant in an image to locate this plant in the global-view orthomosaic to visualize its health status. It locates also the drone position
 - **Dataset:** -
-- **Input:** -
-- **Output:** -
-- **Method:** -
-- **Type:** -
-- **Date:** -
+- **Input:** Image size (800,800,3)
+- **Output:** Global orthomosaic with plant location, health status and drone location
+- **Method:** Algorithmic approach
+- **Type:** Detection, classification, global localization 
+- **Date:** 09/04/2024
 
 
 
