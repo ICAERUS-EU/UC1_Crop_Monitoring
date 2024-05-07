@@ -1,6 +1,6 @@
 # 02 - PLANT LOCATOR FROM ROW-VIEW TO GLOBAL-VIEW
 
-- **Description:** This algorithm contains the complete workflow from detecting a plant in an image to locate this plant in the global-view orthomosaic to visualize its health status. It locates also the drone position. *Please download the [Yolov8 model](https://github.com/EstherNoumena](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/01_plant_disease_detection_yolov8_v1/best.pt) to perform the plant detection and be able to execute the code*
+- **Description:** This algorithm contains the complete workflow from detecting a plant in an image to locate this plant in the global-view orthomosaic to visualize its health status. It locates also the drone position. *Please download the [Yolov8 model](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/01_plant_disease_detection_yolov8_v1/best.pt) to perform the plant detection and be able to execute the code*
 - **Dataset:** -
 - **Input:** Image size (800,800,3)
 - **Output:** Global orthomosaic with plant location, health status and drone location
