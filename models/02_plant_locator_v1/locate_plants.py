@@ -30,7 +30,7 @@ image_path = "../../data/images/orthomosaic_cropped_230609.tif"
 row_points_path = "../../data/features/parallel_rows_points.json"
 gps_path = "../../data/features/all_coords.json"
 model_path = "../01_plant_disease_detection_yolov8_v1/best.pt"
-save_images_path = "../../data/images_row_detections/"
+save_images_path = "../../data/"
 row_images_path = "../../data/images_row/"
 
 # Load image   
