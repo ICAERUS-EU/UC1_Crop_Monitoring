@@ -11,9 +11,6 @@
 - **Date:** 09/04/2024
 
 
-
-
-
 ## Authors
 
 * **Esther Vera** - *Noumena* - [Esther Vera](https://github.com/EstherNoumena)
