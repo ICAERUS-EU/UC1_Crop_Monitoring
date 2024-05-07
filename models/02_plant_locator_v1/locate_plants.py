@@ -17,7 +17,7 @@ import rasterio
 import numpy as np
 from tqdm import tqdm 
 
-from src.read import read_transform_and_mask, read_json, smooth_mask
+from src.read import read_json, read_transform_and_mask
 from src.PlantLocator import PlantLocator
 from src.PlantDetector import PlantDetector
 
@@ -51,16 +51,16 @@ all_coords = read_json(gps_path)
 # Detect the middle plant of each row image and its health status 
 det = PlantDetector(model_path, row_images_path, save_images_path)
 det.track_plants()
-print("Plant locations in row images: ", det.all_locations)  
-print("Plant status in row images: ", det.all_health_status)
+print("\nPlant locations in row images: ", det._all_locations)  
+print("Plant status in row images: ", det._all_health_status)
 
 
 # PLANT LOCATION FROM ROW IMAGE DETECTION TO GLOBAL ORTHOMOSAIC IMAGE 
 # ==========================================================================================
 
 # Init plantlocator object to perform the location operations
-print("Starting lant locator from row-view to global-view")
-loc = PlantLocator(image, mask, transform, all_coords, row_points, det.all_locations, det.all_health_status)
+print("\nStarting plant locator from row-view to global-view")
+loc = PlantLocator(image, mask, transform, all_coords, row_points, det._all_locations, det._all_health_status)
 
 # Get location in pixels of the plants in the rows
 print("Getting pixels of the plants in the rows...")
@@ -70,16 +70,16 @@ rows_pixels_location = loc.get_row_pixels()
 print("Getting GPS location of the rows...")
 rows_location = loc.get_row_location()
 
-# Get location of the each detected plant in the global orthomosaic view
+# Get location of the detected plant in the global orthomosaic view
 print("Getting plant location in the rows...")
 all_pixel_drone_loc, all_pixel_plant_loc, all_plant_loc = loc.get_all_final_plant_locations()
 
 # Draw these plant and drone locations in the global view
 print("Drawing plant and drone positions in image...")
 drawDrone = True # If true, draws the drone position
-plant_positions_image = loc.draw_plant_and_drone(all_pixel_plant_loc, all_pixel_drone_loc, drawDrone) 
+plant_positions_image = loc.draw_plants_and_drone(all_pixel_plant_loc, all_pixel_drone_loc, drawDrone) 
 
-print("Plant GPS positions", all_plant_loc)
+print("\nPlant GPS positions", all_plant_loc)
 print("Plant pixel positions: ", all_pixel_plant_loc)
 print("Drone pixel positions: ", all_pixel_drone_loc)
 

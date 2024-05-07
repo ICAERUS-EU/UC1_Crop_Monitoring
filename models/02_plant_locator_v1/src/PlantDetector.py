@@ -58,9 +58,6 @@ class PlantDetector:
         return bboxes_selected
     
 
-
-    
-
     def distance_between_points(self) -> float:
         """
         Calculates the distance between two geographic points using their latitude and longitude coordinates.
@@ -102,9 +99,18 @@ class PlantDetector:
     
 
     def get_gps_info(self, image_path) -> None:
+        """
+        Extracts GPS coordinates from the EXIF metadata of an image file.
+
+        Args:
+            image_path (str): Path to the input image file.
+        """
+
+        # Extract EXIF information from the image
         img = Image.open(image_path)
         info_exif = img._getexif()
-        
+
+        # Iterate through EXIF tags to find GPSInfo and store GPS coordinates
         for tag, value in info_exif.items():
             tag_name = TAGS.get(tag, tag)
             if tag_name == 'GPSInfo':
@@ -174,13 +180,7 @@ class PlantDetector:
         self._middle_plant = bboxes[np.argmin(distances)]
         self._health_middle_plant = np.round(health_status[np.argmin(distances)])
         
-        # Update the middle plant and its health if another plant is closer to the center within a certain distance and with high confidence
-        '''for dist, conf, bbox in zip(distances, health_status, bboxes): 
-            if abs(dist) < limit and conf > 0.6:
-                self._middle_plant = bbox
-                self._health_middle_plant = np.round(conf)'''
         
-
     def get_middle_plant_location(self, image_path, frame, bboxes, health_status) -> None:
         """
         Gets the location of the middle plant in the image based on its GPS coordinates and calculates its distance from the previous location.
@@ -190,9 +190,6 @@ class PlantDetector:
             frame (numpy.ndarray): Input frame.
             bboxes (numpy.ndarray): Array of bounding boxes.
             health_status (list): List of health statuses corresponding to each bounding box.
-
-        Returns:
-            tuple: Tuple containing the location of the middle plant, its bounding box, and health status.
         """
 
         # Reset variables
@@ -222,7 +219,6 @@ class PlantDetector:
         # Save previous location and distance
         self._plocation = self._location
         self._pdist = dist
-        
     
 
     def track_plants(self) -> None:
@@ -253,8 +249,8 @@ class PlantDetector:
             
             # If plant detected, save location and health 
             if self._health_middle_plant > -1:
-                self.all_health_status.append(self._health_middle_plant)
-                self.all_locations.append(self._location)
+                self._all_health_status.append(self._health_middle_plant)
+                self._all_locations.append(self._location)
 
                 # Draw bbox around plant detected 
                 frame = self.draw_bbox(frame)
