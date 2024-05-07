@@ -1,4 +1,4 @@
-# 02 PLANT LOCATOR FROM ROW-VIEW TO GLOBAL-VIEW
+# 02 - PLANT LOCATOR FROM ROW-VIEW TO GLOBAL-VIEW
 
 - **Description:** This algorithm contains the complete workflow from detecting a plant in an image to locate this plant in the global-view orthomosaic to visualize its health status. It locates also the drone position
 - **Dataset:** -
