@@ -1,9 +1,18 @@
+""" Functions to read json and image with rasterio """
+
+__author__ = "Esther Vera"
+__copyright__ = "Copyright 2023, Noumena"
+__credits__ = ["Esther Vera, Aldo Sollazzo"]
+__version__ = "1.0.0"
+__maintainer__ = "Esther Vera"
+__email__ = "esther@noumena.io"
+__status__ = "Production"
+__license__ = "MIT"
+
 import cv2
 import json 
 import rasterio 
 import numpy as np 
-
-
 
 
 def read_json(json_path): 
@@ -41,26 +50,5 @@ def read_transform_and_mask(image_path):
     return transform, mask
 
 
-
-def smooth_mask(mask): 
-    """
-    Applies a series of image processing operations to smooth a binary mask.
-
-    Args:
-    - mask: The binary mask to be smoothed.
-
-    Returns:
-    - smoothed_mask: The smoothed mask.
-    """
-    # Definition of kernels
-    kernel7 = np.ones((7, 7), np.uint8)
-    kernel3 = np.ones((5, 5), np.uint8)
-
-    # Smooth the mask
-    smoothed_mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel7)
-    smoothed_mask = cv2.erode(smoothed_mask, kernel3, iterations=5)
-    smoothed_mask = cv2.GaussianBlur(smoothed_mask, (5, 5), 0)
-
-    return smoothed_mask
 
 
