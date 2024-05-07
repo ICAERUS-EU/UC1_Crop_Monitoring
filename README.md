@@ -33,7 +33,7 @@ Within this repository, you'll discover various models and computational tools d
 ## Structure
 The repository folders are structured as follow: 
 
-- **data:** here you should add the data folder that you could download from Zenodo in [UC1 GITHUB DATA FOLDER](https://zenodo.org/uploads/11127440).
+- **data:** here you should add the [UC1 GITHUB DATA FOLDER](https://zenodo.org/uploads/11127440) that you could download from Zenodo.
 - **top_view:** it has some top-view level calculations for vegetation analysis.
   - **calculate_vegetation_indexes**
   - **create_grid**
