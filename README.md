@@ -33,14 +33,14 @@ Within this repository, you'll discover various models and computational tools d
 ## Structure
 The repository folders are structured as follow: 
 
-- **data:** *here you can find some labelling data. In addition, you should add to this folder the Zenodo dataset content to train and test the models.* 
-- **top_view:** *it has some top-view level calculations for vegetation analysis*
+- **data:** here you can find some labelling data. In addition, you should add to this folder the Zenodo dataset content to train and test the models.
+- **top_view:** it has some top-view level calculations for vegetation analysis.
   - **calculate_vegetation_indexes**
   - **create_grid**
   - **extract_vineyard_data**
   - **top_level_detection**
-- **models:** *models saved for crop monitoring*
-- **platform.json:** *organized information about the models*
+- **models:** models developed for crop monitoring
+- **platform.json:** organized information about the models
 
 ## Models
 
