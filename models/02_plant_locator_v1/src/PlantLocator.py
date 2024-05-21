@@ -25,8 +25,8 @@ class PlantLocator:
         self._offset = -90
         self._alpha = 0.4
         self._INT_MAX = np.iinfo(np.int64).max
-        self._angle = np.rad2deg(0.22673090865593348)
-        self._drone_angle = np.radians(self._offset - 8.3)
+        self._angle = np.rad2deg(0.22673090865593348)      # This value is extracted from the image metadata (still not integrated in the flow)
+        self._drone_angle = np.radians(self._offset - 8.3) # This value is extracted from the image metadata (still not integrated in the flow
 
         self._image = image
         self._mask = mask

@@ -26,9 +26,9 @@ from src.PlantDetector import PlantDetector
 # ==========================================================================================
 
 # Path to files 
-image_path = "../../data/images/orthomosaic_cropped_230609.tif"
-row_points_path = "../../data/features/parallel_rows_points.json"
-gps_path = "../../data/features/all_coords.json"
+image_path = "../../data/images/orthomosaic_cropped_230609.tif" # Created with Agisoft software
+row_points_path = "../../data/features/parallel_rows_points.json"  # Extracted with the file: UC1_Crop_Monitoring/top_view/create_grid/get_plant_rows.py
+gps_path = "../../data/features/all_coords.json"  # This was extracted from the orthomosaic information (code still not provided)
 model_path = "../01_plant_disease_detection_yolov8_v1/best.pt"
 save_images_path = "../../data/"
 row_images_path = "../../data/images_row/"
@@ -83,10 +83,11 @@ print("\nPlant GPS positions", all_plant_loc)
 print("Plant pixel positions: ", all_pixel_plant_loc)
 print("Drone pixel positions: ", all_pixel_drone_loc)
 
+
 # SHOW AND SAVE IMAGES
 # ==========================================================================================
 
-#cv2.imwrite("plant_positions_image.jpg", plant_positions_image)
+cv2.imwrite("plants_and_drone_located.jpg", plant_positions_image)
 cv2.imshow("plant_positions_image", plant_positions_image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

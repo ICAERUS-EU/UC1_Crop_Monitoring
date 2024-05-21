@@ -35,8 +35,8 @@ class PlantDetector:
         self._model = YOLO(model_path)
         self._row_images_path = row_images_path
         self._save_images_folder = save_images_folder
-        self._all_images = os.listdir(row_images_path)
-    
+        self._all_images = sorted(os.listdir(row_images_path))
+
     
     def filter_predictions(self, results) -> np.ndarray:
         """
@@ -205,7 +205,7 @@ class PlantDetector:
             self._first = False
         else:
             dist = self.distance_between_points()
-            dist += self.add_dist 
+            dist += self._add_dist 
 
         # If the drone has moved enough distance from previous detection, it is a different plant 
         if dist >= 0.6:
@@ -228,13 +228,10 @@ class PlantDetector:
 
         self._first = True
 
-        cont = 0
         for img_path in self._all_images:
-            cont = cont+1
+            if(img_path == 'DJI_20230609124953_0102_D.JPG' or img_path == 'DJI_20230609125011_0111_D.JPG'):
+                continue
 
-            if(cont ==2):
-                break
-            
             # Read row image 
             complete_img_path = os.path.join(self._row_images_path, img_path)
             frame = cv2.imread(complete_img_path)
@@ -245,21 +242,23 @@ class PlantDetector:
             bboxes = self.filter_predictions(results)
 
             # Get middle plant detected 
-            self.get_middle_plant_location(complete_img_path, frame, bboxes, health_status)
-            
-            # If plant detected, save location and health 
-            if self._health_middle_plant > -1:
-                self._all_health_status.append(self._health_middle_plant)
-                self._all_locations.append(self._location)
+            if(len(bboxes)):
+                self.get_middle_plant_location(complete_img_path, frame, bboxes, health_status)
 
-                # Draw bbox around plant detected 
-                frame = self.draw_bbox(frame)
+                # If plant detected, save location and health 
+                if self._health_middle_plant > -1:
+                    self._all_health_status.append(self._health_middle_plant)
+                    self._all_locations.append(self._location)
 
-            # Save and show detected plants in images
-            #cv2.imwrite(self._save_images_folder + img_path, frame)
-            cv2.imshow("Plant detected", cv2.resize(frame, None, fx=0.1, fy=0.1))
-            if cv2.waitKey(3) & 0xFF == ord('s'):
-                break
+                    # Draw bbox around plant detected 
+                    frame = self.draw_bbox(frame)
+
+                    # Save and show detected plants in images
+                    cv2.imwrite(self._save_images_folder + img_path, frame)
+                    cv2.imshow("Plant detected", cv2.resize(frame, None, fx=0.1, fy=0.1))
+                    if cv2.waitKey(1) & 0xFF == ord('s'):
+                        break
         cv2.destroyAllWindows()
+
 
 
