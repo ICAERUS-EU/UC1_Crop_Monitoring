@@ -11,11 +11,20 @@
 - **Date:** 09/04/2024
 
 
-An example of the result is shown in the following image, where the drones' positions are marked as blue triangles, and the health status of the plants are shown as green rectangles (healthy) or red rectangles (unhealthy): 
+In this image is shown the detection of a plant that will be marked in the global-view. The drone location of this visualization is extracted and transformed to the orthomosaic view. 
 
 <p align="center">
-  <img src="https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/45bb4e03-64e1-447e-b34d-91a967e63bd6">
+  <img src="https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/a1793013-7720-42b3-a73e-4c29b14ced34" width=528 height=396>
 </p>
+
+
+After processing all the row images, it is obtained the global visualization of the vineyards where the drones' positions are marked as blue triangles, and the health status of the plants are shown as green rectangles (healthy) or red rectangles (unhealthy): 
+
+<p align="center">
+  <img src="https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/45bb4e03-64e1-447e-b34d-91a967e63bd6" width=769 height=661>
+</p>
+
+
 
 
 ## Authors
