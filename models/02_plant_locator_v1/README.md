@@ -21,7 +21,7 @@ In this image is shown the detection of a plant that will be marked in the globa
 After processing all the row images, it is obtained the global visualization of the vineyards where the drones' positions are marked as blue triangles, and the health status of the plants are shown as green rectangles (healthy) or red rectangles (unhealthy): 
 
 <p align="center">
-  <img src="https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/45bb4e03-64e1-447e-b34d-91a967e63bd6" width=769 height=661>
+  <img src="https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/45bb4e03-64e1-447e-b34d-91a967e63bd6" width=769 height=590>
 </p>
 
 
