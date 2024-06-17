@@ -16,7 +16,7 @@ It obtains a grid that divides the terrain between parcels as in the image:
 
 
 ## NDVI_per_parcels
-Using the NDVI image calculation and the grid information, you can divide the parcels depending on the NDVI levels. As the NDVI is greater, it is supposed more "greenery" in that part, so the plant should be healthier. Additionally, you can you any other vegetations index for this analysis.  
+Using the NDVI image calculation and the grid information, you can divide the parcels depending on the NDVI levels. As the NDVI is greater, it is supposed to be more "greenery" in that part, so the plant should be healthier. Additionally, you can you any other vegetations index for this analysis.  
 
 <p align="center">
   <img src="https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/a27b4f2a-a02b-4c34-b739-972aba28ba5d" style="width:75%; height:75%;">
