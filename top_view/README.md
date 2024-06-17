@@ -3,7 +3,7 @@
 The **top_view** approach contains the following calculations: 
 
 ## calculate_vegetation_indexes
-Calculates different vegetations indexes for orthomosaic images of the vineyard area. For example, using the NIR orthomosaic image and the red spectral orthomosaic image, you can calculate the NDVI orthomosaic values: 
+Calculates different vegetation indexes for orthomosaic images of the vineyard area. For example, using the NIR orthomosaic image and the red spectral orthomosaic image, you can calculate the NDVI orthomosaic values: 
 <p align="center">
   <img src="https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/e7b47fef-4ab3-472c-ba5e-563a531c0135" style="width:75%; height:75%;">
 </p>
