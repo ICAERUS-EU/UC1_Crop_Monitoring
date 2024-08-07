@@ -8,7 +8,7 @@
 - **Output:** Global orthomosaic with plant location, health status and drone location following a grid layout
 - **Method:** Algorithmic approach
 - **Type:** Detection, classification, global localization 
-- **Date:** 09/04/2024
+- **Date:** 07/08/2024
 
 
 In this image is shown the detection of a plant that will be marked in the global-view. The drone location of this visualization is extracted and transformed to the orthomosaic view. 
