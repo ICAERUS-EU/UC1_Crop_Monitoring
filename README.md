@@ -53,6 +53,9 @@ This model has been trained with YOLOv8 and is able to detect the plants and pro
 #### _[Plant locator from row-view to global-view](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/02_plant_locator_v1/)_
 This algorithm contains the complete workflow from detecting a plant in a row-view image to locate this plant in the global-view orthomosaic to visualize its health status at a global scope. It also locates the drone positions.
 
+#### _[Plant locator from row-view to global-view -> grid](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/02_plant_locator_v2/)_
+This algorithm contains the complete workflow from detecting a plant in a row-view image to locate this plant in the global-view orthomosaic in a grid based visualization to observe its health status at a global scope. It also locates the drone positions.
+
 
 ## Authors
 
