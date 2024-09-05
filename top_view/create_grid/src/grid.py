@@ -41,7 +41,9 @@ def get_coordinates_row(ortho_image_res, select_points):
     # Automatic selection
     else:
         coordinates = [[165, 421], [783, 279]]
-        coordinates = [[69, 750], [2298, 237]]
+        coordinates = [[69, 750], [2298, 237]]   # Imagen a 50%
+        coordinates = [[568, 867], [1215, 718]]  # Imagen a tamaño original
+
 
     angle = np.arctan2(coordinates[1][1] - coordinates[0][1], coordinates[1][0] - coordinates[0][0])
     print(coordinates)
@@ -404,6 +406,36 @@ def sort_parcel_points(all_parcel_points):
     return new_parcel_points
 
 
+def get_all_centers_parcels(sorted_parcel_points):
+
+    n = 4
+    centers_parcels = []
+    
+    for k1, row in enumerate(sorted_parcel_points):
+        centers_parcels.append([])
+        for k2, parcel in enumerate(row):
+
+            closed_parcel = parcel + [parcel[0]]
+
+            A = 0
+            C_x = 0
+            C_y = 0
+
+            for i in range(n):
+                factor = closed_parcel[i][0] * closed_parcel[i + 1][1] - closed_parcel[i + 1][0] * closed_parcel[i][1]
+                A += factor
+                C_x += (closed_parcel[i][0] + closed_parcel[i + 1][0]) * factor
+                C_y += (closed_parcel[i][1] + closed_parcel[i + 1][1]) * factor
+
+            A = A / 2
+            C_x = C_x / (6 * A)
+            C_y = C_y / (6 * A)
+
+            centers_parcels[-1].append([C_x, C_y])
+
+    return centers_parcels
+
+
 
 def draw_parcels(ortho_image_res, sorted_parcel_points):
     """
@@ -433,8 +465,6 @@ def draw_parcels(ortho_image_res, sorted_parcel_points):
             center = (center_x, center_y)
 
             cv2.putText(parcel_rows_image, str(total), center, cv2.FONT_HERSHEY_SIMPLEX, 0.23, (255,255,255), 1)
-
-           
 
     return parcel_rows_image
     
