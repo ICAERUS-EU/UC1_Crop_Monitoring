@@ -33,7 +33,7 @@
         }
     },
     {
-        "title": "Plant location from row-view to global-view",
+        "title": "Plant locator from row-view to global-view",
         "creator": "Esther Vera",
         "date": "12/02/2024",
         "icon": "https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/assets/148956768/45bb4e03-64e1-447e-b34d-91a967e63bd6",
@@ -55,7 +55,46 @@
                 "Detection",
                 "Location",
                 "Analysis",
-                "Identification"
+                "Identification",
+                "Orthomosaic"
+            ],
+            "data-type": [
+                "RGB images"
+            ],
+            "subject": [
+                "Vineyards"
+            ],
+            "location": [
+                "Spain"
+            ]
+        }
+    },
+    {
+        "title": "Plant locator from row-view to global-view -> grid",
+        "creator": "Esther Vera",
+        "date": "12/02/2024",
+        "icon": "https://github.com/user-attachments/assets/5d6a953b-b82b-4b3d-8b7b-e5b7ec3c204d",
+        "url": "https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/02_plant_locator_v2",
+        "icaerus_applications": [
+            "crop-monitoring"
+        ],
+        "uses_cases": [
+            "1"
+        ],
+        "extra": {
+            "key1": "",
+            "key2": ""
+        },
+        "filters": {
+            "content": [
+                "Deep learning",
+                "Computer vision",
+                "Detection",
+                "Location",
+                "Analysis",
+                "Identification", 
+                "Grid", 
+                "Orthomosaic"
             ],
             "data-type": [
                 "RGB images"
