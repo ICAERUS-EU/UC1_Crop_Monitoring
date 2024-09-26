@@ -1,100 +1,80 @@
-""" Code designed to get the vineyards rows and make the grid """
+""" Code designed to get the vineyards rows and make the grid depending on rows direction """
 
 __author__ = "Esther Vera"
 __copyright__ = "Copyright 2023, Noumena"
-__credits__ = ["Esther Vera, Oriol Arroyo, Salvador Calgua, Aldo Sollazzo"]
+__credits__ = ["Esther Vera, Aldo Sollazzo"]
 __version__ = "1.0.0"
 __maintainer__ = "Esther Vera"
 __email__ = "esther@noumena.io"
 __status__ = "Production"
 __license__ = "MIT"
 
-import cv2
-import yaml
-import numpy as np
-import copy
-import json 
-import rasterio
+import os
 
-from src.orthomosaic_processor import OrthomosaicProcessor
-from src.grid import get_coordinates_row, get_parallel_rows, mask_ortho_image_rows, get_filtered_rows, get_all_parcel_points, draw_parcels, get_all_centers_parcels
+from src.OrthomosaicProcessor import OrthomosaicProcessor
+from src.VineyardRowDetector import VineyardRowDetector
+from src.ParcelDetector import ParcelDetector
+from src.utils import save_data, save_images, show_images
 
+
+# VARIABLES 
+# ===============================================================================================
+
+# If true, the start point for the first row can be defined manually; if false, it will use the predefined coordinate
 select_points = False 
 #select_points = True
 
-VINEYARD_HEIGHT = 10
-VINEYARD_SEP = 37
-PARCEL_LEN = 70 # 5.2 metros 
-PARCEL_LEN = 14 # 1 metro en la vida real teniendo en cuenta el tamaño de la imagen resized y la resolución
+# Depending on the vineyard or the image size, this should be defined 
+#VINEYARD_SEP = 37    # Separation between vineyards rows
+#PARCEL_LEN = 70      # Size of the parcels (5.2 m in real life when taking into account image resized and resolution)
+#PARCEL_LEN = 14      # Size of the parcels (1 m in real life when taking into account image resized and resolution)
+#PARCEL_LEN = 27      # Size of the parcels (1 m in real life when taking into account image resized and resolution)
 
-VINEYARD_SEP = 74
-PARCEL_LEN = 27 # 1 metro en la vida real teniendo en cuenta el tamaño de la imagen resized y la resolución
+VINEYARD_SEP = 74     # Separation between vineyards rows
+PARCEL_LEN = 141.9    # Size of the parcels (5.2 m in real life when vineyard image in real size)
+VINEYARD_HEIGHT = 10  # Width of the vineyard row
 
-
+# Paths to saved data
 base_path = './../../data/'
 base_path_images = base_path + 'images/'
 base_path_features = base_path + 'features/'
 
 
+# MAIN FUNCTION  
+# ===============================================================================================
 
 def main():
 
     # Load images to calculate the grid 
     op = OrthomosaicProcessor()
-    tif_path = base_path_images + "orthomosaic_cropped_230609.tif"
-    ortho_image, red_band, green_band, blue_band, mask = op.read_orthomosaic(tif_path)
-    ortho_image_res = cv2.resize(ortho_image, None, fx=1, fy=1)#, fx=0.5, fy=0.5)
-    mask = cv2.resize(mask, None, fx=1, fy=1)#, fx=0.5, fy=0.5)
+    tif_path = os.path.join(base_path_images, "orthomosaic_cropped_230609.tif")
+    ortho_image, _, _, _, mask = op.read_orthomosaic(tif_path) 
 
-    
-    ######################################
-    
-    # Select vineyard row and extract coordinates and angle
-    coordinates, angle = get_coordinates_row(ortho_image_res, select_points)
+    # ===============================================================================================
+    # Create a VineyardRowDetector object to get the rows in the vineyard
+    vrd = VineyardRowDetector(ortho_image, mask, VINEYARD_SEP)
+    vrd.get_coordinates_row(select_points)
+    parallel_rows_points = vrd.get_parallel_rows()
+    masked_rows_image, filtered_rows_image = vrd.get_filtered_rows()
 
-    # Get vineyards rows  
-    ortho_rows_image, parallel_rows_points = get_parallel_rows(ortho_image_res, mask, coordinates, VINEYARD_SEP)
+    # ===============================================================================================
+    # Create a ParcelDetector object to get the parcels inside the rows
+    pdet = ParcelDetector(ortho_image, mask, filtered_rows_image, parallel_rows_points, PARCEL_LEN)
+    all_parcel_points, centers_parcels = pdet.get_all_parcel_points()
+    parcel_rows_image = pdet.draw_rgb_parcels(all_parcel_points)
+    map_rows_image = pdet.draw_map_parcels(all_parcel_points)
 
-    # Mask vineyard rows with shape_mask
-    masked_rows_image = mask_ortho_image_rows(ortho_rows_image, mask)
-    print(masked_rows_image.shape)
-
-
-    ###################################### 
-
-    # Calculate vineyards rows 
-    filtered_rows_image = get_filtered_rows(masked_rows_image)
-    parcel_points = get_all_parcel_points(filtered_rows_image, PARCEL_LEN)
-    parcel_rows_image = draw_parcels(ortho_image_res, parcel_points)
-    centers_parcels = get_all_centers_parcels(parcel_points)
-
-
-    # Save parcel_points in JSON file inside base_path_features
-    with open(base_path_features + 'parcel_points1.json', 'w') as f:
-        json.dump(parcel_points, f)
-
-    # Save parallel_rows_points 
-    with open(base_path_features + 'parallel_rows_points1.json', 'w') as f:
-        json.dump(parallel_rows_points, f)
-
-    # Save parcel_ points centers in JSON file inside base_path_features
-    with open(base_path_features + 'parcel_centers_points1.json', 'w') as f:
-        json.dump(centers_parcels, f)
-
-    # Save and show image
-    cv2.imwrite('masked_rows_image2.jpg', masked_rows_image)
-    cv2.imwrite('parcel_rows_image2.jpg', parcel_rows_image)
-    
-    #cv2.imshow('masked_rows_image1', masked_rows_image)
-    #cv2.imshow('parcel_rows_image1', cv2.resize(parcel_rows_image, None, fx=0.1,fy=0.1))
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
-
-
+    # ===============================================================================================
+    # Save and show data
+    save_data(base_path, all_parcel_points, parallel_rows_points, centers_parcels)
+    save_images(masked_rows_image, parcel_rows_image, map_rows_image)
+    show_images(masked_rows_image, parcel_rows_image, map_rows_image)
 
 
 if __name__ == "__main__":
     main()
+
+
 
 
 

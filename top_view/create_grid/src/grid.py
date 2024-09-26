@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import copy 
-
+from tqdm import tqdm
 
 def get_coordinates(event, x, y, flags, param):
     """ """
@@ -54,7 +54,7 @@ def get_coordinates_row(ortho_image_res, select_points):
 def get_parallel_rows(ortho_image_res, mask, coordinates, VINEYARD_SEP):
 
     """
-    Gets parallel rows that define the each vineyard rows and shows them in an image.
+    Gets parallel rows that define each vineyard rows and shows them in an image.
     
     Args:
         ortho_image_res (numpy.ndarray): A numpy array representing the orthomosaic image.
@@ -133,6 +133,7 @@ def get_parallel_rows(ortho_image_res, mask, coordinates, VINEYARD_SEP):
             # Saves parallel rows points and draw the line
             parallel_rows_points.append([point1, point2])
             cv2.line(ortho_image_rows, point1, point2, (0,0,255), thickness)
+
 
     return ortho_image_rows, parallel_rows_points
     
@@ -319,7 +320,7 @@ def get_total_parcels_and_deltas(all_corners, PARCEL_LEN):
 
 
 
-def get_all_parcel_points(filtered_rows_image, PARCEL_LEN): 
+def get_all_parcel_points(filtered_rows_image, parallel_rows_points, PARCEL_LEN): 
     """
     Calculates the position for each parcel in the image.
 
@@ -336,10 +337,16 @@ def get_all_parcel_points(filtered_rows_image, PARCEL_LEN):
     # Detects edges and contours
     edges = cv2.Canny(filtered_rows_image,10,50) 
     contours = cv2.findContours(edges,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)[0]
+    sorted_contours, rows = sort_contours(parallel_rows_points, filtered_rows_image, contours)
 
     # For each contour
     total = -1
-    for cnt in contours: 
+    for cnt in sorted_contours: 
+        
+        filtered_rows_image = cv2.drawContours(filtered_rows_image, [cnt], -1, (255, 155, 0), 2)
+        '''cv2.imshow("filtered_rows_image",cv2.resize(filtered_rows_image, None, fx=0.2,fy=0.2))
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()'''
 
         # Get 4 corners of the rectangle that defines the contour
         all_corners = get_corners(cnt)
@@ -360,50 +367,34 @@ def get_all_parcel_points(filtered_rows_image, PARCEL_LEN):
             # Saves parcel points
             all_parcel_points[-1].append(parcel.tolist())
         
-
-    # Sort parcel points
-    sorted_parcel_points = sort_parcel_points(all_parcel_points)
-
-    return sorted_parcel_points
-
-    
-
-def sort_parcel_points(all_parcel_points): 
-    """
-    Sorts the parcel points depending on the position in the row.
-
-    Args:
-        all_parcel_points (numpy.darray): parcel points unsorted. 
-
-    Returns:
-        new_parcel_points (numpy.darray): parcel points sorted by coordinates.
-    """
-
-    sorted_parcel_points = sorted(all_parcel_points, key=lambda x: x[0][0][1], reverse=False)
-
-    right_parcels = []
-    idx_right = []
-    for k in range(len(sorted_parcel_points)):
-        if(sorted_parcel_points[k][0][0][0] > 1400):
-            idx_right.append(k)
+    return all_parcel_points, rows
 
 
-    sort_idx_right = sorted(idx_right)
+def sort_contours(parallel_rows_points, filtered_rows_image, contours): 
+    # Sort contours
+    rows = []
+    sorted_contours = []
+    for points in tqdm(parallel_rows_points):
+        appended_contours = []
+        blank1 = np.zeros_like(filtered_rows_image)
+        blank1 = cv2.line(blank1, points[0], points[1], (255,255,255), 9)
 
-    for idx in reversed(sort_idx_right): 
-        right_parcels.append(sorted_parcel_points.pop(idx))
+        for cnt in contours: 
+            blank2 = np.zeros_like(filtered_rows_image)
+            blank2 = cv2.drawContours(blank2, [cnt], -1, (255, 255, 255), -1)
+            mask = cv2.bitwise_and(blank1, blank2)
 
+            if np.any(mask): 
+                appended_contours.append(cnt)
+                    
+        appended_contours = sorted(appended_contours, key=lambda c: cv2.boundingRect(c)[0])
+        rect = cv2.minAreaRect(appended_contours[0])
+        box = np.int0(cv2.boxPoints(rect))
+        rows.append(box[0])
+        for appended_cnt in appended_contours: 
+            sorted_contours.append(appended_cnt)
 
-    right_parcels = sorted(right_parcels, key=lambda x: x[0][0][1], reverse=False)
-
-    new_parcel_points = []
-    for k in range(len(sorted_parcel_points)):
-        if(k>1 and len(right_parcels)>0):
-            new_parcel_points.append(right_parcels.pop(0))
-        new_parcel_points.append(sorted_parcel_points[k])
-
-
-    return new_parcel_points
+    return sorted_contours, rows
 
 
 def get_all_centers_parcels(sorted_parcel_points):
@@ -437,7 +428,7 @@ def get_all_centers_parcels(sorted_parcel_points):
 
 
 
-def draw_parcels(ortho_image_res, sorted_parcel_points):
+def draw_parcels(ortho_image_res, sorted_parcel_points, rows):
     """
     Draws parcel rectangles in each vineyard row.
 
@@ -450,6 +441,25 @@ def draw_parcels(ortho_image_res, sorted_parcel_points):
 
     # Copy image and detects edges and contours
     parcel_rows_image = copy.deepcopy(ortho_image_res)
+    parcel_rows_image = np.full_like(ortho_image_res, 255)
+
+    gris = cv2.cvtColor(ortho_image_res, cv2.COLOR_BGR2GRAY)
+    _, thresh = cv2.threshold(gris, 200, 255, cv2.THRESH_BINARY)
+
+    padding = 50
+    #thresh = cv2.copyMakeBorder(thresh, padding, padding, padding, padding, cv2.BORDER_CONSTANT, value=[255, 255, 255])
+    thresh = cv2.bitwise_not(thresh)
+    contornos, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+
+    #area_min = 80000
+    for contorno in contornos:
+        #if cv2.contourArea(contorno) > area_min :
+        print(cv2.contourArea(contorno) )
+        parcel_rows_image = cv2.drawContours(parcel_rows_image, [contorno], -1, (0, 0, 0), 2)
+        '''cv2.imshow("parcel_rows_image",cv2.resize(parcel_rows_image, None, fx=0.2,fy=0.2))
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()'''
 
 
     # For each parcel in the row
@@ -458,13 +468,32 @@ def draw_parcels(ortho_image_res, sorted_parcel_points):
         for k2, parcel in enumerate(row):
             total = total + 1
 
-            cv2.polylines(parcel_rows_image, [np.array(parcel)], isClosed=True, color=[0,170,255], thickness=2)
+            #cv2.polylines(parcel_rows_image, [np.array(parcel)], isClosed=True, color=[0,170,255], thickness=2)
+            cv2.polylines(parcel_rows_image, [np.array(parcel)], isClosed=True, color=[0,0,0], thickness=2)
 
             center_x = int((parcel[0][0] + parcel[2][0]) / 2) - 2
             center_y = int((parcel[0][1] + parcel[2][1]) / 2) + 2
             center = (center_x, center_y)
 
-            cv2.putText(parcel_rows_image, str(total), center, cv2.FONT_HERSHEY_SIMPLEX, 0.23, (255,255,255), 1)
+            #cv2.putText(parcel_rows_image, str(total), center, cv2.FONT_HERSHEY_SIMPLEX, 0.23, (255,255,255), 1)
+            cv2.putText(parcel_rows_image, str(total), center, cv2.FONT_HERSHEY_SIMPLEX, 0.23, (0,0,0), 1)
+   
+
+            '''
+            # Write row number
+            if (k2 == 0):
+                center_x = int((parcel[0][0] + parcel[2][0]) / 2) - 50
+                center_y = int((parcel[0][1] + parcel[2][1]) / 2) + 14
+                center = (center_x, center_y)
+                cv2.putText(parcel_rows_image, str(k1+1), center, cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0,0,0), 1)'''
+    
+
+    padding_left = 100
+    parcel_rows_image = cv2.copyMakeBorder(parcel_rows_image, 0, 0, padding_left, 0, cv2.BORDER_CONSTANT, value=[255, 255, 255])
+    for k1, center in enumerate(rows):
+        cv2.putText(parcel_rows_image, str(k1), (10, center[1]), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,0), 2)
+
+
 
     return parcel_rows_image
     
