@@ -35,10 +35,10 @@ The repository folders are structured as follow:
 
 - **data:** here you should add the [UC1 GITHUB DATA FOLDER](https://zenodo.org/records/11195994) that you could download from Zenodo.
 - **top_view:** it has some top-view level calculations for vegetation analysis.
-  - **calculate_vegetation_indexes**
-  - **create_grid**
-  - **extract_vineyard_data**
-  - **top_level_detection**
+  - **create_grid**: detects rows and parcels and define a grid
+  - **create_grid_aligned**: detects rows and parcels and define a grid after aligned the orthomosaic vineyard image
+  - **calculate_vegetation_indexes**: calculates different vegetation indexes of the orthomosaic vineyard image
+  - **NDVI_per_parcels**: calculates the NDVI in each parcel
 - **models:** models developed for crop monitoring
 - **platform.json:** organized information about the models
 
