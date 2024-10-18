@@ -1,6 +1,6 @@
 # 03 - PLANT LEAVES ANALYSIS
 
-- **Description:** This code approaches some methods for performing analysis and detect early disease development in vineyard leaves.
+- **Description:** This code approaches some methods for performing analysis and detect early disease development in vineyard leaves using color detection, VARI index and clustering algorithms.
 - **Dataset:** [VINEYARD PLANT LEAVES IMAGES (SUMMER 2024)](https://zenodo.org/records/13944498)
 - **Input:** Image size (120,160,3)
 - **Output:** Cluster classification of leaves, VARI over time
