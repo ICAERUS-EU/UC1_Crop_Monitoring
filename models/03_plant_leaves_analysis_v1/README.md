@@ -20,7 +20,7 @@ Another important feature extracted is the VARI (Visible Atmospherically Resista
 
 Finally, combining the number of orange spots, their area, and the VARI index, a KMeans clustering model is applied to group the leaves into three categories based on these values. Leaves with more orange spots, larger affected areas, and lower VARI index values are linked to unhealthy plants. The following image shows the expected outcome, with leaves at risk highlighted in yellow and those associated with poor health marked in red.
 
-<p align="center"> <img src="https://github.com/user-attachments/assets/4919af84-07f2-4850-8024-94e6db76cf85"</p> 
+<p align="center"> <img src="https://github.com/user-attachments/assets/5d1198bd-26ca-4209-94f6-c400a1e13786"</p> 
 
 
 
