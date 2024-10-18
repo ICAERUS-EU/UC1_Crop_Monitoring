@@ -106,5 +106,40 @@
                 "Spain"
             ]
         }
+    },
+    {
+    "title": "Plant leaves analysis",
+    "creator": "Esther Vera",
+    "date": "17/10/2024",
+    "icon": "https://github.com/user-attachments/assets/34685e3d-be21-420c-aaf7-cc2988b2d3dd",
+    "url": "https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/03_plant_leaves_analysis_v1",
+    "icaerus_applications": [
+        "crop-monitoring"
+    ],
+    "uses_cases": [
+        "1"
+    ],
+    "extra": {
+        "key1": "",
+        "key2": ""
+    },
+    "filters": {
+        "content": [
+            "Computer vision",
+            "Clusterization",
+            "Analysis",
+            "VARI",
+            "KMeans"
+        ],
+        "data-type": [
+            "RGB images"
+        ],
+        "subject": [
+            "Vineyards leaves"
+        ],
+        "location": [
+            "Spain"
+        ]
     }
+}
 ]
