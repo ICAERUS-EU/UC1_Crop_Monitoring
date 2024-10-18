@@ -56,6 +56,8 @@ This algorithm contains the complete workflow from detecting a plant in a row-vi
 #### _[Plant locator from row-view to global-view -> grid](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/02_plant_locator_v2/)_
 This algorithm contains the complete workflow from detecting a plant in a row-view image to locate this plant in the global-view orthomosaic in a grid based visualization to observe its health status at a global scope. It also locates the drone positions.
 
+#### _[Plant leaves analysis](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/03_plant_leaves_analysis_v1)_
+This code approaches some methods for performing analysis and detect early disease development in vineyard leaves using color detection, VARI index and clustering algorithms.
 
 ## Authors
 
