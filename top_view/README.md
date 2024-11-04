@@ -5,15 +5,15 @@ The **top_view** approach contains the following calculations:
 ## create_grid
 It obtains a grid that divides the terrain between parcels as in the images: 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/804df86c-ed36-4e7a-b8da-de72477af1e5" style="width:75%; height:75%;display:inline-block; margin:0;">
-  <img src="https://github.com/user-attachments/assets/cc053c9a-c05e-4daa-9c10-f4fec797c747" style="width:75%; height:75%;display:inline-block; margin:0;">
+  <img src="https://github.com/user-attachments/assets/f8def1d6-c706-4435-85b8-517dafbf31d2" style="width:75%; height:75%;display:inline-block; margin:0;">
+  <img src="https://github.com/user-attachments/assets/3f59b07d-cdc5-4c24-aa3c-e1abda4814a9" style="width:75%; height:75%;display:inline-block; margin:0;">
 </p>
 
 ## create_grid_aligned
 It obtains a grid that divides the terrain between parcels in an aligned orthomosaic vineyard as in the images:
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/b00022ac-f330-4762-bd6e-74b137f1a1b5" style="width:75%; height:75%;display:inline-block; margin:0;">
-  <img src="https://github.com/user-attachments/assets/2f12a972-b1cf-4218-8b00-3437f01a2aa7" style="width:75%; height:75%;display:inline-block; margin:0;">
+  <img src="https://github.com/user-attachments/assets/e05b5671-3e85-49e5-b94f-ec62ed9cfa8f" style="width:75%; height:75%;display:inline-block; margin:0;">
+  <img src="https://github.com/user-attachments/assets/20386eba-575d-4da3-b558-cbc3a3d16d9c" style="width:75%; height:75%;display:inline-block; margin:0;">
 </p>
 
 ## calculate_vegetation_indexes
