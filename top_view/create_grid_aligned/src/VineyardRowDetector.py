@@ -16,7 +16,7 @@ from tqdm import tqdm
 
 
 class VineyardRowDetector:
-    def __init__(self, ortho_image, mask, VINEYARD_SEP):
+    def __init__(self, ortho_image, mask, VINEYARD_HEIGHT, VINEYARD_SEP):
         """
         Initializes the class with vineyard row separation, ortho image, and mask.
 
@@ -26,6 +26,7 @@ class VineyardRowDetector:
             VINEYARD_SEP (float): Separation between vineyard rows.
         """
         self._coordinates = []
+        self._vineyard_height = VINEYARD_HEIGHT    
         self._vineyard_sep = VINEYARD_SEP    
         self._ortho_image = ortho_image
         self._mask = mask
@@ -101,7 +102,6 @@ class VineyardRowDetector:
             parallel_rows_points (list): A list of points defining the parallel rows.
         """
         reached = False
-        thickness = 9
         parallel_rows_points = [] # To store the parallel rows points
         h, w, _ = self._ortho_image_rows.shape
 
@@ -121,7 +121,7 @@ class VineyardRowDetector:
             # If the row intersects the vineyard mask
             if np.any(rows_mask): 
                 parallel_rows_points.append([point1, point2])
-                cv2.line(self._ortho_image_rows, point1, point2, (0, 0, 255), thickness)
+                cv2.line(self._ortho_image_rows, point1, point2, (0, 0, 255), self._vineyard_height)
             else:
                 reached = True  #
 

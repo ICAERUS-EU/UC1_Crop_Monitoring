@@ -26,7 +26,7 @@ select_point = False
 # select_point = True
 
 # Depending on the vineyard or the image size, this should be defined 
-VINEYARD_HEIGHT = 10  # Width of the vineyard row
+VINEYARD_HEIGHT = 30  # Height of the vineyard row
 VINEYARD_SEP = 74     # Separation between vineyards rows
 PARCEL_LEN = 141.9    # Size of the parcels (1 m in real life when vineyard image in real size)
 ORIENTATION = -13     # Angle to rotate the vineyard image so the rows are aligned with the image 
@@ -50,7 +50,7 @@ def main():
 
     # ===============================================================================================
     # Create a VineyardRowDetector object to get the rows in the vineyard
-    vrd = VineyardRowDetector(ortho_image, mask, VINEYARD_SEP)
+    vrd = VineyardRowDetector(ortho_image, mask, VINEYARD_HEIGHT, VINEYARD_SEP)
     vrd.get_coordinates_row(select_point)
     parallel_rows_points = vrd.get_parallel_rows()
     masked_rows_image, filtered_rows_image = vrd.get_filtered_rows()
