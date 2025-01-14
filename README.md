@@ -59,6 +59,9 @@ This algorithm contains the complete workflow from detecting a plant in a row-vi
 #### _[Plant leaves analysis](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/models/03_plant_leaves_analysis_v1)_
 This code approaches some methods for performing analysis and detect early disease development in vineyard leaves using color detection, VARI index and clustering algorithms.
 
+#### _[Drone simulation with ROS2 and Sphinx in a vineyard model](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/04_drone_simulation_v1)_
+This code is designed to simulate the Anafi Parrot drone using ROS2 and Sphinx, enabling the drone's movement within a vineyard model and automating the capture of images.
+
 ## Authors
 
 * **Esther Vera** - *Noumena* - [Esther Vera](https://github.com/EstherNoumena)
