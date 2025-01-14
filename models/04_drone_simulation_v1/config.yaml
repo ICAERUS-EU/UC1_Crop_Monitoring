@@ -1,0 +1,9 @@
+Meshes:
+  - Name: 'VineyardMesh'
+    FbxPath: "/home/noumena/Documents/whole_vineyard.fbx"
+    Location: "1150 1200 -413"
+    Rotation: "-90 0 0"
+    Scale: "1 1 1"
+    SnapToGround: true
+
+    
