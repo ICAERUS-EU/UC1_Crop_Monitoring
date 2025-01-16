@@ -2,7 +2,7 @@
 
 ## 🌿 Overview
 
- This respository contains the complete workflow from detecting a plant in an image and locate this plant in the global-view orthomosaic following a predefined grid to visualize its health status. Besides, it also locates the drone positions from where the images where captured and the plant was analyzed. 
+ This repository contains the complete workflow from detecting a plant in an image and locate this plant in the global-view orthomosaic following a predefined grid to visualize its health status. Besides, it also locates the drone positions from where the images where captured and the plant was analyzed. 
 
  ## 🗂️ Structure
 
