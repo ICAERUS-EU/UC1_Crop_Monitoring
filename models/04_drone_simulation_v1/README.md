@@ -2,16 +2,18 @@
 
 ## 🌿 Overview
 
- This respository contains the complete workflow 
+ This repository contains the code for navigating with the Anafi Parrot drone in the Sphinx simulation with ROS2 over a vineyard model. The workflow includes several key features: transforming GPS coordinates for precise movement, adjusting the drone's velocities and gimbal, capturing plant images at specific intervals, orienting the drone based on the type of movement and providing battery status alerts.
+
 
  ## 🗂️ Structure
 
 - **src:** 
-  - **.py**: class to calculate drone positions. 
-  - **.py**: class to show row and global images with analysis. 
-- **README.md**: explanation of the model and usage. 
-- **.py**: main code to execute. 
+  - **drone_calculations.py**: class to calculate drone target locations, transform coordinates and set movements. 
+  - **drone_publisher.py**: class to publish velocities and orientations of the drone and the gimbal. 
+- **README.md**: explanation of the repository and usage. 
+- **drone_main.py**: main code to execute. It handles the suscriptions to GPS information, the yaw orientation of the drone, the camera and the battery level. It decides the type of movement of the drone and the calls to publish velocities. 
 - **requirements.txt**: file to easily install the libraries. 
+- **coordinates.yaml**: 
 
 
 ## 📄 Dataset 
