@@ -2,7 +2,7 @@
 
 ## 🌿 Overview
 
- This repository contains the code for navigating with the Anafi Parrot drone in the Sphinx simulation with ROS2 over a vineyard model. The workflow includes several key features: transforming GPS coordinates for precise movement, adjusting the drone's velocities and gimbal, capturing plant images at specific intervals, orienting the drone based on the type of movement and providing battery status alerts.
+This repository contains the code for navigating with the Anafi Parrot drone in the Sphinx simulation with ROS2 over a vineyard model. The workflow includes several key features: transforming GPS coordinates for precise movement, adjusting the drone's velocities and gimbal, capturing plant images at specific intervals, orienting the drone based on the type of movement and providing battery status alerts.
 
 
  ## 🗂️ Structure
@@ -25,25 +25,102 @@ The data needed is in the [drone_sim_folder](https://github.com/ICAERUS-EU/UC1_C
 ## 💻 Requirements
 
 - **Environment configuration**: There is no specific environment needed, the libraries should be installed inside ros2. 
-- **Data**: Download the [whole_vineyard.fbx](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/data/drone_sim_model/whole_vineyard.fbx) model from this repository and change the _config.yaml_ model path to your specific route. 
+- **Data**: Download the [whole_vineyard.fbx](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/blob/main/data/drone_sim_model/whole_vineyard.fbx) model from this repository and change the **config.yaml** model path to your specific route. 
 
 ## ⚙️ Parameters
 
 The parameters are defined directly in the code. 
 
-- **Data paths**: 
-- **Variables**: 
+- **Data paths**: define the data path to **coordinates.yaml** inside **drone_main.py**.
+- **Variables**: variables are defined inside the code and you should be modified carefully. 
 
 
 ## 🚀 Usage
 
-For using the model,
+To start the parrot drone simulation follow the next steps: 
 
-```
+- Install ROS2. In this case, ROS2 Humble is been used. 
+- Install Sphinx following the webpage [documentation](https://developer.parrot.com/docs/sphinx/installation.html). 
+- To start the simulation:
+   - In one CMD write:  
+   ```
+   sudo systemctl start firmwared.service
+   ```
+   - Add your password and run: 
+   ```
+   sudo systemctl start firmwared.service
+   ```
+   - Open another CMD and write:
+   ```
+   sphinx "/opt/parrot-sphinx/usr/share/sphinx/drones/anafi.drone"::firmware="https://firmware.parrot.com/Versions/anafi/pc/%23latest/images/anafi- pc.ext2.zip"
+   ```
+   - To define the environment you should open a new CMD and run the next command. This defines the route to config.yaml that will load the vineyards model and also specifies the gps coordinates where the simulation will take place.. 
+   ```
+   parrot-ue4-empty -config-file=Documents/config.yaml -gps-json='{"lat_deg":41.288745, "lng_deg":1.712019, "elevation":0.0}'
+   ```
+   <details>
+   <summary>NOTE</summary>
+   This command loads everything, to test without the model and coordinates just use: <code>parrot-ue4-empty</code>
+   </details>
 
-```
+Once the simulation is running you should see an image like this: 
 
+<p align="center">
+  <img src="" width=769 height=590>
+</p>
 
+Let's take off the drone but first we need to establish the connection with ROS2: 
+
+- Open a new CMD and add the next command to enter into your ros workspace (change name to yours), source the ros2 environment and launch the nodes communication with the Anafi drone: 
+   ```
+   cd ros2_ws/
+   ```
+   ```
+   source install/setup.bash
+   ```
+   ```
+   ros2 launch anafi_ros_nodes anafi_launch.py ip:='10.202.0.1' model:='4k'
+   ```
+- If everthing works smooth, you should be able to perform take off and move the drone. In a new CMD run:
+   ```
+   cd ros2_ws/
+   ```
+   ```
+   source install/setup.bash
+   ```
+   ```
+   source /opt/ros/humble/setup.bash 
+   ```
+   ```
+   ros2 service call /anafi/drone/takeoff std_srvs/srv/Trigger {}\ 
+   ```
+- If you want to land the drone just call the service:
+   ```
+   ros2 service call /anafi/drone/land std_srvs/srv/Trigger {}\ 
+   ```   
+To this point there is another clarification to be made. ROS2 works with packages that contains the code that define the nodes. In the case of this simulation, it was reutilize the **py_pubsub** (example package) from ROS2 and the code and files where substituted per **drone_main.py** and the ones in **src** folder. You can create your own package or reutilized one from ROS2. Once the code is correctly located in and referenced:
+
+- Open a terminal and run the next command to update the workspace with the new codes: 
+   ```
+   cd ros2_ws/
+   ```
+   ```
+   source install/setup.bash
+   ```
+   ```
+   source /opt/ros/humble/setup.bash 
+   ```
+   ```
+   colcon build
+   ```
+- After the drone take off, run the **drone_main.py** code to make the drone move between the defined GPS coordinates:
+   ```
+   ros2 run py_pubsub drone_main
+   ```    
+
+Then the d
+
+  
 
 ## 📊 Results
 
@@ -52,6 +129,12 @@ For using the model,
 </p>
 
 
+> [!TIP]
+> Optional information to help a user be more successful.
+
+
+> [!WARNING]  
+> Critical content demanding immediate user attention due to potential risks.
 
 
 ## Authors
