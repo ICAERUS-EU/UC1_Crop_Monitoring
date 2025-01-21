@@ -66,7 +66,7 @@ To start the parrot drone simulation follow the next steps:
 Once the simulation is running you should see an image like this: 
 
 <p align="center">
-  <img src="" width=769 height=590>
+  <img src="https://github.com/user-attachments/assets/d9316da3-45ca-471a-b186-3cf4043e32e2" style="width: 75%; height: auto;">
 </p>
 
 Let's take off the drone but first we need to establish the connection with ROS2: 
@@ -118,24 +118,47 @@ To this point there is another clarification to be made. ROS2 works with package
    ros2 run py_pubsub drone_main
    ```    
 
-Then the drone will start moving towards the GPS coordinates defined in order. There are two types of movements: 
+Then the drone will start moving towards the GPS coordinates defined in order. It will perform two types of movements: 
 
-- Straight movement
-- Parallel movement 
+- **Straight movement**: a direct movement from the actual position to the next one where the drone faces the GPS final position that it is directing.
+- **Parallel movement**: a parallel movement to capture photos from the vineyard plants. In this case, the drone moves parallel to the vineyard row and the next GPS coordinates. Its mark with a 1 in the last parameter after each set of coordinates in **coordinates.yaml**. During this movement, the drone will take photos after a certain distance.
+
+ 
+### Drone suscriptions
+
+| **Component**           | **Topic**                        | **Description**                           |
+|-------------------------|----------------------------------|-------------------------------------------|
+| GPS location           | `/anafi/drone/gps/location`       | GPS location of the drone                 |
+| Orientation            | `/anafi/drone/rpy_slow`           | To extract the yaw of the drone           |
+| Camera                 | `/anafi/camera/image`             | To get the captured images by the camera  |
+| Battery level          | `/anafi/battery/percentage`       | Battery level of the drone                |
+
 
   
+### Drone publishers
+
+| **Component**           | **Topic**                        | **Description**                             |
+|-------------------------|----------------------------------|---------------------------------------------|
+| Angular velocity        | `/anafi/drone/gps/location`      | To specify the pitch, roll and yaw velocity |
+| Altitude velocity       | `/anafi/drone/rpy_slow`          | To move the drone up and down               |
+| Gimbal orientation      | `/anafi/camera/image`            | To adjust the gimbal orientation            |
+
+
+
 
 ## 📊 Results
 
+During the flight of the drone you could appreaciate the next environment:  
+
 <p align="center">
-  <img src="" width=769 height=590>
+  <img src="https://github.com/user-attachments/assets/dc4cdf4b-6fd8-4c92-9c87-0053435706af" style="width: 75%; height: auto;">
 </p>
 
 
 
 <details>
 <summary>SPHINX SPECIFICATIONS</summary>
-Sphinx is very useful
+Sphinx is very useful if you have an Anafi drone and want to customize the programming. 
 The Sphinx simulation has limitations of space, speed, publishing an reaction time. 
 </details>
 
@@ -145,9 +168,6 @@ The Sphinx simulation has limitations of space, speed, publishing an reaction ti
 > [Customize 3D models in Sphinx](https://developer.parrot.com/docs/sphinx/customize_the_environment.html)
 > 
 > [3D scenes available in Sphinx](https://developer.parrot.com/docs/sphinx/available_worlds.html)
-
-
-
 
 
 ## Authors
