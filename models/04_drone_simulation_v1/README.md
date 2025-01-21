@@ -113,12 +113,15 @@ To this point there is another clarification to be made. ROS2 works with package
    ```
    colcon build
    ```
-- After the drone take off, run the **drone_main.py** code to make the drone move between the defined GPS coordinates:
+- After the drone take off, run the **drone_main.py** code to make the drone move between the defined GPS coordinates (changing the package name accordingly):
    ```
    ros2 run py_pubsub drone_main
    ```    
 
-Then the d
+Then the drone will start moving towards the GPS coordinates defined in order. There are two types of movements: 
+
+- Straight movement
+- Parallel movement 
 
   
 
@@ -129,12 +132,22 @@ Then the d
 </p>
 
 
+
+<details>
+<summary>SPHINX SPECIFICATIONS</summary>
+Sphinx is very useful
+The Sphinx simulation has limitations of space, speed, publishing an reaction time. 
+</details>
+
 > [!TIP]
-> Optional information to help a user be more successful.
+> [Setting GPS coordinates in Sphinx](https://developer.parrot.com/docs/sphinx/launcher_api.html)
+> 
+> [Customize 3D models in Sphinx](https://developer.parrot.com/docs/sphinx/customize_the_environment.html)
+> 
+> [3D scenes available in Sphinx](https://developer.parrot.com/docs/sphinx/available_worlds.html)
 
 
-> [!WARNING]  
-> Critical content demanding immediate user attention due to potential risks.
+
 
 
 ## Authors
