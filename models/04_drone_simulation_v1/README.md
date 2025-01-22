@@ -4,6 +4,8 @@
 
 This repository contains the code for navigating with the Anafi Parrot drone in the Sphinx simulation with ROS2 over a vineyard model. The workflow includes several key features: transforming GPS coordinates for precise movement, adjusting the drone's velocities and gimbal, capturing plant images at specific intervals, orienting the drone based on the type of movement and providing battery status alerts.
 
+The purpose of this simulation is to recreate the scenario to fly the drone through the vineyard rows at a low altitude to take images of the plants. Right now this procedure is performed manually as it can't be programmed manually with the controller due to the low altitude.  
+
 
  ## 🗂️ Structure
 
@@ -126,6 +128,8 @@ Then the drone will start moving towards the GPS coordinates defined in order. I
  
 ### Drone suscriptions
 
+In the next table you could see the suscriptions that are performed in the **drone_main.py** code and what information is extracted by each one. 
+
 | **Component**           | **Topic**                        | **Description**                           |
 |-------------------------|----------------------------------|-------------------------------------------|
 | GPS location           | `/anafi/drone/gps/location`       | GPS location of the drone                 |
@@ -137,12 +141,14 @@ Then the drone will start moving towards the GPS coordinates defined in order. I
   
 ### Drone publishers
 
+In the next table you could see the three publishers to move the drone and the gimbal. The angular velocity is calculated in terms of velocity, and the altitude velocity is published in terms of distance and the gimbal orientation in grades. 
+
+
 | **Component**           | **Topic**                        | **Description**                             |
 |-------------------------|----------------------------------|---------------------------------------------|
 | Angular velocity        | `/anafi/drone/gps/location`      | To specify the pitch, roll and yaw velocity |
 | Altitude velocity       | `/anafi/drone/rpy_slow`          | To move the drone up and down               |
 | Gimbal orientation      | `/anafi/camera/image`            | To adjust the gimbal orientation            |
-
 
 
 
@@ -156,11 +162,23 @@ During the flight of the drone you could appreaciate the next environment:
 
 
 
-<details>
-<summary>SPHINX SPECIFICATIONS</summary>
-Sphinx is very useful if you have an Anafi drone and want to customize the programming. 
-The Sphinx simulation has limitations of space, speed, publishing an reaction time. 
-</details>
+## Simulation limits
+
+Sphinx is very useful if you have an Anafi drone and want to customize the programming and connect it later to the real drone, as the topics and functionality is the same. However afger this testing there are some limitations to comment: 
+
+- The drone cannot move outside of the defined empty area, so whole vineyard can't be covered. 
+- The drone has a delay to perform the movements. This means that is still moving after sending a 0 velocity command, which highly affects the performance and location of the drone. That's way there has been added like a colddown count after each movement to have enough time to stoip the drone.
+- Also, the limits that defined the location reach are adjusted to this reaction time delay but that makes that the drone doesn't reach exactly the desired positions.
+- The drone is not stable at a height, it moves up and down during the movement even when this movement is not published directly. 
+- There are movement topics that doesn't work or don't publish anything or that works well for a specific movement but not for another. That justifies the choice of the topics, as all of them were tested.
+- The publishing rate affects to the speed of the drone movement and reaction time.
+- The camera of the simulation spins with the drone, which makes it impossible to observe the simulation from a static point of view.
+- The empty simulation has some predefined paths for objects that can't be deleted but don't affect the performance.
+- The model of the vineyards is limited to fbx extension and texture should be clearly defined. In this case, was adjusted with Blender.
+- After the start of the simulation, internet connection is not available.
+- Anafi Drone lacks some sensors, as proximity sensors, that are crucial to avoid collisions during flight. 
+
+In short, the simulation has some limitations that affect the performance, further tests will include testing this code in the vineyards with the real drone, to check how the performing works. 
 
 > [!TIP]
 > [Setting GPS coordinates in Sphinx](https://developer.parrot.com/docs/sphinx/launcher_api.html)
