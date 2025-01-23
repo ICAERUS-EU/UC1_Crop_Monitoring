@@ -108,38 +108,73 @@
         }
     },
     {
-    "title": "Plant leaves analysis",
-    "creator": "Esther Vera",
-    "date": "17/10/2024",
-    "icon": "https://github.com/user-attachments/assets/8a529b11-5e3c-45c2-afcd-ff0b87f15d0a",
-    "url": "https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/03_plant_leaves_analysis_v1",
-    "icaerus_applications": [
-        "crop-monitoring"
-    ],
-    "uses_cases": [
-        "1"
-    ],
-    "extra": {
-        "key1": "",
-        "key2": ""
+        "title": "Plant leaves analysis",
+        "creator": "Esther Vera",
+        "date": "17/10/2024",
+        "icon": "https://github.com/user-attachments/assets/8a529b11-5e3c-45c2-afcd-ff0b87f15d0a",
+        "url": "https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/03_plant_leaves_analysis_v1",
+        "icaerus_applications": [
+            "crop-monitoring"
+        ],
+        "uses_cases": [
+            "1"
+        ],
+        "extra": {
+            "key1": "",
+            "key2": ""
+        },
+        "filters": {
+            "content": [
+                "Computer vision",
+                "Clusterization",
+                "Analysis",
+                "VARI",
+                "KMeans"
+            ],
+            "data-type": [
+                "RGB images"
+            ],
+            "subject": [
+                "Vineyards leaves"
+            ],
+            "location": [
+                "Spain"
+            ]
+        }
     },
-    "filters": {
-        "content": [
-            "Computer vision",
-            "Clusterization",
-            "Analysis",
-            "VARI",
-            "KMeans"
+    {
+        "title": "Drone simulation with ROS2 and Sphinx in a vineyard model",
+        "creator": "Esther Vera",
+        "date": "14/01/2025",
+        "icon": "https://github.com/user-attachments/assets/dc4cdf4b-6fd8-4c92-9c87-0053435706af",
+        "url": "https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/04_drone_simulation_v1",
+        "icaerus_applications": [
+            "crop-monitoring"
         ],
-        "data-type": [
-            "RGB images"
+        "uses_cases": [
+            "1"
         ],
-        "subject": [
-            "Vineyards leaves"
-        ],
-        "location": [
-            "Spain"
-        ]
+        "extra": {
+            "key1": "",
+            "key2": ""
+        },
+        "filters": {
+            "content": [
+                "Computer vision",
+                "ROS2",
+                "Sphinx",
+                "Simulation",
+                "3D model"
+            ],
+            "data-type": [
+                "RGB images"
+            ],
+            "subject": [
+                "Drone simulation"
+            ],
+            "location": [
+                "Spain"
+            ]
+        }
     }
-}
 ]
