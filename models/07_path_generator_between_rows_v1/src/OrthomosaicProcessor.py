@@ -1,7 +1,7 @@
 """ Class to load and process orthomosaic images """
 
 __author__ = "Esther Vera"
-__copyright__ = "Copyright 2024, Noumena"
+__copyright__ = "Copyright 2025, Noumena"
 __credits__ = ["Esther Vera, Oriol Arroyo, Salvador Calgua, Aldo Sollazzo"]
 __version__ = "1.0.0"
 __maintainer__ = "Esther Vera"

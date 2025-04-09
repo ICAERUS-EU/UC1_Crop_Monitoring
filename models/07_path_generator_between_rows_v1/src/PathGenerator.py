@@ -1,3 +1,14 @@
+""" Class to generate the GPS path between rows for the drone """
+
+__author__ = "Esther Vera"
+__copyright__ = "Copyright 2025, Noumena"
+__credits__ = ["Esther Vera, Oriol Arroyo, Salvador Calgua, Aldo Sollazzo"]
+__version__ = "1.0.0"
+__maintainer__ = "Esther Vera"
+__email__ = "esther@noumena.io"
+__status__ = "Production"
+__license__ = "MIT"
+
 
 import cv2
 import math
