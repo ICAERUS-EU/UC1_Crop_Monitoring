@@ -183,13 +183,8 @@ class VineyardRowDetector:
         # Apply the mask to get only the rows drawn inside the vineyard (with the vineyard below)
         masked_rows_image = cv2.bitwise_and(self._ortho_image_rows, self._ortho_image_rows, mask=self._smoothed_mask)
         
-        # Filter red color to get the rows in the image (without the vineyard, only in black and red)
-        red_mask = cv2.inRange(masked_rows_image, self._lower_red, self._upper_red)
-        self._filtered_rows_image = cv2.bitwise_and(masked_rows_image, masked_rows_image, mask=red_mask)
-        self._filtered_rows_image = cv2.medianBlur(self._filtered_rows_image, 5)  # Smooth the filtered rows
-        
-        return masked_rows_image, self._filtered_rows_image
-    
+        return masked_rows_image
+     
 
     def get_rows_coordinates(self, masked_rows_image) -> tuple[list, list]: 
         """

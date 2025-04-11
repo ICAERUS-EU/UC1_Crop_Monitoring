@@ -269,12 +269,15 @@ class PathGenerator:
                     fc='dodgerblue', ec='navy', alpha=0.7, zorder=3
                 )
         
-        plt.grid(True, alpha=0.3)
+        # Show image
+        #plt.grid(True, alpha=0.3)
         plt.title('Drone path', fontsize=14, pad=20)
         plt.xlabel('X Coordinate', fontsize=12)
         plt.ylabel('Y Coordinate', fontsize=12)
         plt.legend(fontsize=10, loc='upper right')
         plt.tight_layout()
+        # plt.axis('off') 
+        # plt.savefig('drone_row_path1.png', bbox_inches='tight', pad_inches=0, dpi=300)
         plt.show()
 
 
@@ -286,7 +289,6 @@ class PathGenerator:
             path: Generated path points.
             image: Image on which to draw the path.
         """
-
 
         # Draw original rows (red)
         for row in self.original_rows:
@@ -327,12 +329,11 @@ class PathGenerator:
                 dy = pt2[1] - pt1[1]
                 cv2.arrowedLine(image, pt1, pt2, (255, 0, 0), 20)  # DodgerBlue arrow
 
-        # Optionally, display the image
+        # Display the image
         cv2.imshow("Drone path in image", cv2.resize(image, None, fx=0.06, fy=0.06))
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-
-
+        # cv2.imwrite("drone_row_paths2.jpg", cv2.resize(image, None, fx=0.06, fy=0.06))
    
 
     def pixel_to_gps(self, tif_path, x, y):

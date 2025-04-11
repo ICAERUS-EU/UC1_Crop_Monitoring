@@ -9,19 +9,13 @@ __email__ = "esther@noumena.io"
 __status__ = "Production"
 __license__ = "MIT"
 
-import os
-import cv2 
-import json
-import rasterio
-import numpy as np 
 
 from src.OrthomosaicProcessor import OrthomosaicProcessor
 from src.VineyardRowDetector import VineyardRowDetector
-from src.ParcelDetector import ParcelDetector
 from src.PathGenerator import PathGenerator
 from src.utils import save_json, read_json
 
-
+import cv2
 # VARIABLES 
 # ===============================================================================================
 
@@ -53,24 +47,25 @@ def main():
     tif_path = "{0}/{1}/ORTHOMOSAICS/CROPPED_ORTHOMOSAIC_{1}.tif".format(base_path, date)        
     ortho_image, _, _, _, mask =  ortho_processor.read_orthomosaic(tif_path)    
 
+
     # DETECT VINEYARD ROWS
     # ===============================================================================================
     # Create a VineyardRowDetector object to get the rows in the vineyard
     row_detector = VineyardRowDetector(ortho_image, mask, VINEYARD_HEIGHT, VINEYARD_SEP)
     row_detector.get_init_row_coordinates(select_points)
     parallel_rows_points = row_detector.get_parallel_rows()
-    masked_rows_image, filtered_rows_image = row_detector.filter_rows()
+    masked_rows_image = row_detector.filter_rows()
 
     # Get vineyard row points and convert them to list 
     rows_contours, rows = row_detector.get_rows_coordinates(masked_rows_image) 
 
     # Save rows points to json
     save_json(base_path_features, 'rows_contour_coordinates.json', rows_contours) 
-    save_json(base_path_features, 'rows_coordinates.json', rows) 
+    save_json(base_path_features, 'rows_coordinates.json', rows)
+
 
     # GENERATE DRON PATH AND GET GPS COORDINATES 
     # ===============================================================================================
-
     # You can comment the section "DETECT VINEYARD ROWS" and go directly to this reading function
     rows = read_json(base_path_features, 'rows_coordinates.json') 
 
