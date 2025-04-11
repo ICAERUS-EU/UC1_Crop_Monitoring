@@ -62,8 +62,8 @@ This code approaches some methods for performing analysis and detect early disea
 #### _[Drone simulation with ROS2 and Sphinx in a vineyard model](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/04_drone_simulation_v1)_
 This code is designed to simulate the Anafi Parrot drone using ROS2 and Sphinx, enabling the drone's movement within a vineyard model and automating the capture of images.
 
-#### _[Plant_disease_detection_model with YOLO12_- 3 classes](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/05_plant_disease_detection_yolov12_3classes_v1)_
-#### _[Plant_disease_detection_model with YOLO12_- 4 classes](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/06_plant_disease_detection_yolov12_4classes_v1)_
+#### _[Plant disease detection model with YOLO12 - 3 classes](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/05_plant_disease_detection_yolov12_3classes_v1)_
+#### _[Plant disease detection model with YOLO12 - 4 classes](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/06_plant_disease_detection_yolov12_4classes_v1)_
 #### _[Path generator for drone between rows](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/07_path_generator_between_rows_v1)_
 
 
