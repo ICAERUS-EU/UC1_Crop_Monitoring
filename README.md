@@ -63,9 +63,13 @@ This code approaches some methods for performing analysis and detect early disea
 This code is designed to simulate the Anafi Parrot drone using ROS2 and Sphinx, enabling the drone's movement within a vineyard model and automating the capture of images.
 
 #### _[Plant disease detection model with YOLO12 - 3 classes](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/05_plant_disease_detection_yolov12_3classes_v1)_
-#### _[Plant disease detection model with YOLO12 - 4 classes](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/06_plant_disease_detection_yolov12_4classes_v1)_
-#### _[Path generator for drone between rows](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/07_path_generator_between_rows_v1)_
+This repository includes the code used to train a YOLOv12 model and the resulting trained model for detecting diseased vine leaves. It classifies leaves into three categories: healthy, mildew, and low iron.
 
+#### _[Plant disease detection model with YOLO12 - 4 classes](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/06_plant_disease_detection_yolov12_4classes_v1)_
+This repository includes the code used to train a YOLOv12 model and the resulting trained model for detecting diseased vine leaves. It classifies leaves into three categories: healthy, risk, mildew, and low iron.
+
+#### _[Path generator for drone between rows](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/07_path_generator_between_rows_v1)_
+This algorithm generates a GPS-based path between vineyard rows for low-altitude drone flights. The output is a file that contains the with coordinates optimized for the flying drone to cover the whole vineyard.
 
 
 ## Authors
