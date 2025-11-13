@@ -1,7 +1,7 @@
 import numpy as np
 import open3d as o3d
 from pointcloud.pointcloud_loader import PointCloudLoader
-from utils.utils import deserialize_line_sets
+from grid.grid_operations import GridOperations
 
 
 
@@ -28,7 +28,7 @@ class VisualizerPointCloud:
             cloud = PointCloudLoader.load_cloud(cloud_path)
 
         grid_path = f"{base_grid_paths}/grid_{date}.npz"
-        line_sets = deserialize_line_sets(grid_path)
+        line_sets = GridOperations.deserialize_line_sets(grid_path)
         
         bbox = o3d.geometry.OrientedBoundingBox.create_from_points(o3d.utility.Vector3dVector(line_sets[self.parcel_idx].points))
         parcel_3d = cloud.crop(bbox)

@@ -10,8 +10,6 @@ from visualizer.visualizer_height import VisualizerHeight
 from visualizer.visualizer_volume import VisualizerVolume
 from visualizer.visualizer_points import VisualizerPoints
 from visualizer.visualizer_pointcloud import VisualizerPointCloud
-
-from pointcloud.pointcloud_loader import PointCloudLoader
 from utils.utils import load_config, load_json
 
 

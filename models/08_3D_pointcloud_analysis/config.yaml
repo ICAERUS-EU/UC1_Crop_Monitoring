@@ -1,0 +1,27 @@
+io:
+  zenodo_base_dir: /run/media/noumena/8TB/ZENODO
+  downsample_dir: data/vineyards{suffix}            # Folder of downsampled point clouds
+  plant_cloud_dir: data/plant_clouds                # Folder of plant point clouds
+  plant_cloud_dir_down: data/plant_clouds_down     # Folder of downsampled plant point clouds
+  plant_cloud_dir_NDVI: data/plant_clouds_NDVI     # Folder of NDVI plant point clouds
+  plant_cloud_dir_NDVI_down: data/plant_clouds_NDVI_down  # Folder of downsampled NDVI plant point clouds
+
+paths:
+  pointcloud: "{zenodo_base}/{year}/{date}/POINTCLOUDS/CROPPED_POINTCLOUD_{date}.txt"
+  plant_cloud: "{plant_dir}/{year}/plant_cloud_{date}.ply"
+  orthomosaic: "{zenodo_base}/{year}/{date}/ORTHOMOSAICS/CROPPED_ORTHOMOSAIC_{date}.tif"
+  grid: "data/grids/{year}/grid_{date}.npz"
+
+data_sources:
+  parcel_points_file: "parcel_points_oriented.json"
+  
+years: ["2023", "2024"]
+dates: ["230421", "230428", "230518", "230526", "230609", "230728", "230831", "240426", "240510", "240523", "240530", "240703", "240717", "240731", "240813", "240830"]
+showcase_dates: ["230428", "230518"]
+skip_dates: ["230421", "240505"]
+parcel_idx: 0  
+downsample: true  # true, false
+ndvi: false # true, false
+mode: 'all' # visualizations: all, color, height, volume, points
+color_type: 'VARI' # 'NDVI' or 'VARI'
+
