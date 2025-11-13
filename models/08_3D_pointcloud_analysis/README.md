@@ -2,20 +2,44 @@
 
 ## 🌿 Overview
 
-This repository contains code for generating a GPS-based path between vineyard rows. The generated path is saved as a list of GPS coordinates that 
-recreate the desired flight path for a drone. These coordinates can be used to fly the drone at low altitude to capture images of the plants.
-
-The output file, **drone_path_gps.json**, should be converted to the required YAML format (*conversion code to be uploaded*). Once converted, it can be used directly for simulating a drone flight adjusting the initial coordinates according to the simulation environment.
+This repository contains a compilation of models designed to analyze pointclouds using information such as volume, height, VARI, NDVI and point density. It generates a 3D grid that matches the 2D orthomosaic grid and produces graphs visualizations to assess differences in the 3D reconstruction of the vineyards over time. 
 
  ## 🗂️ Structure
 
-- **src:** 
-  - **OrthomosaicProcessor.py**: class for loading, resizing, and processing orthomosaic images and masks.
-  - **PathGenerator.py**: class to compute and visualize optimal drone paths across row segments, with support for image overlay and GPS conversion.
-  - **utils.py**: it contains helper functions for reading and saving JSON files. 
-  - **VineyardRowDetector.py**: class for detecting vineyard rows from an orthomosaic image. 
+- **apps/** contains all the models that can be run. 
+  - **3D_grid_computer.py**: main code to generate the 3D grid aligned with the pointcloud for analysing 3D parcels. 
+  - **3D_pointcloud_downsample.py**: main code to remove outliers, downsample and standardized the pointclouds .
+  - **extract_height_data.py**: extracts height data from a pointcloud for later analysis (`visualize_data.py`). 
+  - **extract_NDVI_data.py**: extracts NDVI data from a pointcloud for later analysis (`visualize_data.py`).
+  - **extract_points_data.py**: extracts points counting data from a pointcloud for later analysis (`visualize_data.py`).
+  - **extract_VARI_data.py**: extracts VARI data from a pointcloud for later analysis (`visualize_data.py`).
+  - **extract_volume_data.py**: extracts volume and density data from a pointcloud for later analysis (`visualize_data.py`).
+  - **get_ground_and_plant_pointclouds.py**: main code to separate plants from ground and saved these pointclouds. Useful for pointclouds alignment and plant analysis.  
+  - **show_pointcloud_grids.py**: shows the 3D grids generated in the pointlcouds. 
+  - **visualize_data.py**: generates 2D analysis graphs over time of the extracted data. 
+- **data/**: data folder that contains downsampled pointclouds, NDVI downsampled pointclouds, grids definitions, plants pointclouds, ground pointclouds, analysis data, etc.   
+- **extract_analysis/**:
+  - **analysis.py**: it contains the auxiliar classes to extract the pointcloud data. 
+- **grid/**: 
+  - **grid_alignment.py**: 
+  - **grid_operations.py**:
+  - **grid_processor.py**:
+- **orthomosaic/**: 
+  - **orthomosaic_loader.py**: 
+- **pointcloud/**: .
+  - **pointcloud_downsampler.py**: 
+  - **pointcloud_ground_plants.py**:
+  - **pointcloud_loader.py**: 
+- **utils/**:  
+  - **utils.py**: 
+- **visualizer/**:   
+  - **visualizer_color.py**: 
+  - **visualizer_height.py**: 
+  - **visualizer_pointcloud.py**: 
+  - **visualizer_points.py**: 
+  - **visualizer_volume.py**: 
+- **config.yaml**: 
 - **README.md**: explanation of the repository and usage. 
-- **generate_drone_path_between_rows.py**: main code to execute. It detects the rows and generate the gps path between them.  
 - **requirements.txt**: file to easily install the libraries. 
 
 
