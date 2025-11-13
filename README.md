@@ -71,7 +71,7 @@ This repository includes the code used to train a YOLOv12 model and the resultin
 #### _[Path generator for drone between rows](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/07_path_generator_between_rows_v1)_
 This algorithm generates a GPS-based path between vineyard rows for low-altitude drone flights. The output is a file that contains the with coordinates optimized for the flying drone to cover the whole vineyard.
 
-#### _[3D pointcloud analysis](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/08_3D_pointcloud_analysis)
+#### _[3D pointcloud analysis](https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/08_3D_pointcloud_analysis)_
 A compilation of models designed to analyze point clouds using information such as volume, height, VARI, NDVI and density. It generates a 3D grid that matches the 2D orthomosaic grid and produces visualizations to assess differences in the 3D reconstruction over time.
 
 ## Authors
