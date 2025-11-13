@@ -50,7 +50,7 @@ def main():
 
     # DETECT VINEYARD ROWS
     # ===============================================================================================
-    # Create a VineyardRowDetector object to get the rows in the vineyard
+    '''# Create a VineyardRowDetector object to get the rows in the vineyard
     row_detector = VineyardRowDetector(ortho_image, mask, VINEYARD_HEIGHT, VINEYARD_SEP)
     row_detector.get_init_row_coordinates(select_points)
     parallel_rows_points = row_detector.get_parallel_rows()
@@ -62,7 +62,7 @@ def main():
     # Save rows points to json
     save_json(base_path_features, 'rows_contour_coordinates.json', rows_contours) 
     save_json(base_path_features, 'rows_coordinates.json', rows)
-
+    '''
 
     # GENERATE DRON PATH AND GET GPS COORDINATES 
     # ===============================================================================================
