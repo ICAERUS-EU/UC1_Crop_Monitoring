@@ -74,7 +74,7 @@ The parameters are defined in the `config.yaml`.
 
 ## 🚀 Usage
 
-Before executing any code, make sure to specify in `config.yaml` the type of data you would like to process (downsample, ndvi, etc). Make sure that the dataset is saved at the same level as the **apps/** folder with the name **data**. Modify any path necessary to refer to your data. This will be necessary for the original pointcloud zenodo data for downsampling datasets (`zenodo_base_dir` in `config.yaml`). Then, just type the python command in the `08_3D_pointcloud_analysis` with the environment active. For example, to visualize the 3D graphs data run: 
+Before executing any code, make sure to specify in `config.yaml` the type of data you would like to process (downsample, ndvi, etc). Make sure that the dataset is saved at the same level as the **apps/** folder with the name **data**. Modify any path necessary to refer to your data. This will be necessary for the original pointcloud zenodo data for downsampling datasets (`zenodo_base_dir` in `config.yaml`). Then, just type the python command from **08_3D_pointcloud_analysis/apps/** with the environment active. For example, to visualize the 3D graphs data run: 
 
 ```
 python visualize_data.py
@@ -90,10 +90,20 @@ As a final result, this is what we get from each one of the main codes:
   - `3D_grid_computer.py`  
 A grid computation is saved in **data/grids/** or **data/grids_NDVI/**, depending on whether NDVI is active, along with a visualization of the generated 3D grid.
 
+Example of 3D grid with pointcloud: 
+
+<p align="center"> <img src="https://github.com/user-attachments/assets/a540a614-5900-44ff-9633-3fae98859efe" width="60%"></p>
+
+
+
+Example of 3D grid with NDVI pointcloud: 
+
+<p align="center"> <img src="https://github.com/user-attachments/assets/b30047aa-36f4-4516-8d67-2c6de968e85e" width="60%"></p>
+
     
   - `3D_pointcloud_downsample.py`  
    A downsampled, aligned version of a pointcloud, with a outlier removal process. They are is saved in the folders with a suffix `down` in the name. 
-  
+
 
   - `extract_height_data.py`, `extract_NDVI_data.py`, `extract_points_data.py`, `extract_VARI_data.py`, `extract_volume_data.py`   
    A JSON file with the data saved saved in /data/analysis_data/**.
@@ -121,10 +131,16 @@ Example for `height_data_down.json`:
   - `get_ground_and_plant_pointclouds.py`  
 Two new point clouds were created: one contains the ground part of the vineyard, and the other contains the plant part. They are used for grid alignment and computing 3D analysis data.
 
-   
+Example of ground pointcloud: 
+<p align="center"> <img src="https://github.com/user-attachments/assets/2cacfa3c-12d4-4e8b-9bc8-fbeb38c29a75" width="60%"></p>
+
+Example of plant pointcloud:
+
+<p align="center"> <img src="https://github.com/user-attachments/assets/3e6e360d-15c4-476f-abd5-4084064a88cb" width="60%"></p>
+
   
   - `show_pointcloud_grids.py`  
-A visualization of the 3D grids with the point clouds, as shown in the image:
+A visualization of the 3D grids with the point clouds using the saved grids.
 
   
   
@@ -132,13 +148,19 @@ A visualization of the 3D grids with the point clouds, as shown in the image:
 Generates 2D graphs showing how the point cloud analysis data changes over time. It also displays a comparison of the selected `parcel_idx over` time alongside the 3D model of these parcels and point clouds (`showcase_dates`).
 
 
+Example of analysis data: 
+<p align="center"> <img src="https://github.com/user-attachments/assets/091014bb-d60d-4e0a-aaf1-e8de6c160d6d" width="60%"></p>
+<p align="center"> <img src="https://github.com/user-attachments/assets/5036c87a-0b35-44df-a56d-d005d83c7c1b" width="60%"></p>
+<p align="center"> <img src="https://github.com/user-attachments/assets/8b31a55b-2b0d-4bc9-8cc6-7899335fcbb2" width="60%"></p>
+<p align="center"> <img src="https://github.com/user-attachments/assets/80fd2aee-b935-4aa1-a161-1a4cb917a2ed" width="60%"></p>
+
+Example for `parcel_idx` 0: 
+<p align="center"> <img src="https://github.com/user-attachments/assets/3005d0b8-eb8c-498f-8d36-97f4724b3853" width="60%"></p>
 
 
+Example for plant pointclouds comparison: 
 
-<p align="center"> <img src="https://github.com/user-attachments/assets/1a0d1eec-85a0-48a9-a6af-69d46f94b503" alt="Row Image Example" width="60%"></p>
-
-
-
+<p align="center"> <img src="https://github.com/user-attachments/assets/d2bf46ce-2d38-46ec-8265-cfcf306cf448" width="60%"></p>
 
 
 
