@@ -176,5 +176,43 @@
                 "Spain"
             ]
         }
+    },
+    {
+        "title": "3D point cloud analysis",
+        "creator": "Esther Vera",
+        "date": "13/11/2025",
+        "icon": "https://github.com/user-attachments/assets/387d62c9-812b-43e1-9187-6a98146aa042",
+        "url": "https://github.com/ICAERUS-EU/UC1_Crop_Monitoring/tree/main/models/08_3D_pointcloud_analysis",
+        "icaerus_applications": [
+            "crop-monitoring"
+        ],
+        "uses_cases": [
+            "1"
+        ],
+        "extra": {
+            "key1": "",
+            "key2": ""
+        },
+        "filters": {
+            "content": [
+                "Computer vision",
+                "3D",
+                "Point cloud",
+                "Analysis",
+                "Graphs",
+                "3D growth analysis"
+            ],
+            "data-type": [
+                "Point cloud",
+                "NDVI point cloud",
+                "Orthomosaic"
+            ],
+            "subject": [
+                "3D point cloud analysis"
+            ],
+            "location": [
+                "Spain"
+            ]
+        }
     }
 ]
