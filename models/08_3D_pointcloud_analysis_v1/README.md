@@ -46,14 +46,14 @@ This repository contains a collection of models designed to analyze pointclouds 
 
 ## 📄 Dataset 
 
-The data required for this code is included in the [UC1 DATA FOLDER - 3D POINTCLOUD ANALYSIS]().With this dataset, you can directly visualize the grids using `show_pointcloud_grids.py` and explore the analysis results with `visualize_data.py` without running the data extraction scripts. Alternatively, you can run the main `extract` scripts from the **apps/** folder in `down` mode if you want to generate the extracted data yourself. This data folder should be located at the same level as **apps/**, **extract_analysis/**, etc.
+The data required for this code is included in the [UC1 DATA FOLDER - 3D POINTCLOUD ANALYSIS](https://zenodo.org/records/17601303).With this dataset, you can directly visualize the grids using `show_pointcloud_grids.py` and explore the analysis results with `visualize_data.py` without running the data extraction scripts. Alternatively, you can run the main `extract` scripts from the **apps/** folder in `down` mode if you want to generate the extracted data yourself. This data folder should be located at the same level as **apps/**, **extract_analysis/**, etc.
 
 If you want to work with the original pointclouds to perform downsampling or extract 3D grids, you should download the vineyard datasets for each date you wish and you will have access to the CROPPED_POINTCLOUDS, CROPPED_NDVI and CROPPED_ORTHOMOSAICS. 
 
 ## 💻 Requirements
 
 - **Environment configuration**: please install the *requirements.txt* file into a conda environment to have the necessary libraries to execute the code.
-- **Data**: download the [UC1 DATA FOLDER - 3D POINTCLOUD ANALYSIS]() and Vineyards data for a specific date. if you would like to use the CROPPED_POINTCLOUDS or CROPPED_ORTHOMOSAICS and CROPPED_NDVI.
+- **Data**: download the [UC1 DATA FOLDER - 3D POINTCLOUD ANALYSIS](https://zenodo.org/records/17601303) and Vineyards data for a specific date. if you would like to use the CROPPED_POINTCLOUDS or CROPPED_ORTHOMOSAICS and CROPPED_NDVI.
 
 ## ⚙️ Parameters
 
